@@ -1,1 +1,4 @@
 stata.lic*
+work-data
+.DS_Store
+data-input/un-sna
