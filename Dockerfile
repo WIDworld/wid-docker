@@ -26,25 +26,18 @@ RUN apt-get update \
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        littler \
-        #r-base \
         r-base-core \
         r-base-dev \
-    && echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
-    && ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
-    && install.r docopt \
-    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Additional R packages
-RUN install2.r --error --deps TRUE haven
-RUN install2.r --error --deps TRUE readr
-RUN install2.r --error --deps TRUE magrittr
-RUN install2.r --error --deps TRUE dplyr
-RUN install2.r --error --deps TRUE glue
+RUN R -e "install.packages('haven', repos = 'http://cran.us.r-project.org')"
+RUN R -e "install.packages('readr', repos = 'http://cran.us.r-project.org')"
+RUN R -e "install.packages('magrittr', repos = 'http://cran.us.r-project.org')"
+RUN R -e "install.packages('dplyr', repos = 'http://cran.us.r-project.org')"
+RUN R -e "install.packages('glue', repos = 'http://cran.us.r-project.org')"
+RUN R -e "install.packages('janitor', repos = 'http://cran.us.r-project.org')"
 
 # Copy Stata license 
 RUN --mount=type=secret,id=statalic \

@@ -4,7 +4,7 @@
 
 // Separetely fetch compensation of employees and mixed income
 // from valued-added tables to use as a fall back
-use "$input_data_dir/un-sna/401.dta", clear
+use "$work_data/un-sna-401.dta", clear
 
 *renvars countryorarea subgroup / country_or_area sub_group
 tostring series sna_system, replace
@@ -21,11 +21,11 @@ generate sector = "hn"
 tempfile va
 save "`va'", replace
 
-use "$input_data_dir/un-sna/406.dta", clear
+use "$work_data/un-sna-406.dta", clear
 generate sector = "ho"
-append using "$input_data_dir/un-sna/407.dta"
+append using "$work_data/un-sna-407.dta"
 replace sector = "np" if missing(sector)
-append using "$input_data_dir/un-sna/409.dta"
+append using "$work_data/un-sna-409.dta"
 replace sector = "hn" if missing(sector)
 
 merge n:1 country_or_area year series currency using "$work_data/un-sna-current-gdp.dta", keep(match) nogenerate

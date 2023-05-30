@@ -3,11 +3,11 @@
 // -------------------------------------------------------------------------- //
 
 // Import financial, non-fiancial and combined sectors
-use "$input_data_dir/un-sna/403.dta", clear
+use "$work_data/un-sna-403.dta", clear
 generate sector = "nf"
-append using "$input_data_dir/un-sna/404.dta"
+append using "$work_data/un-sna-404.dta"
 replace sector = "fc" if missing(sector)
-append using "$input_data_dir/un-sna/408.dta"
+append using "$work_data/un-sna-408.dta"
 replace sector = "co" if missing(sector)
 
 merge n:1 country_or_area year series currency using "$work_data/un-sna-current-gdp.dta", keep(match) nogenerate

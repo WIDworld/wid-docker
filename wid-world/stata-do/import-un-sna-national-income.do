@@ -2,7 +2,7 @@
 // Import data on foreign income
 // -------------------------------------------------------------------------- //
 
-use "$input_data_dir/un-sna/103.dta", clear
+use "$work_data/un-sna-103.dta", clear
 
 merge n:1 country_or_area year series currency using "$work_data/un-sna-current-gdp.dta", keep(match) nogenerate
 replace value = value/current_gdp
