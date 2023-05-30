@@ -9,10 +9,13 @@
 // Use global $Rpath to find R executable
 rsource, terminator(END_OF_R) rpath("$Rpath") roptions(--vanilla)
 
-list.of.packages <- c("readr", "magrittr", "dplyr", "glue", "haven", "janitor")
-invisible(lapply(list.of.packages, library, character.only = TRUE))
-
-setwd("/wid-world/data-input/un-sna")
+library(haven)
+library(glue)
+library(tibble)
+library(readr)
+library(dplyr)
+library(magrittr)
+library(janitor)
 
 table_names <- c(
     "Table 1.1: Gross domestic product by expenditures at current prices",
@@ -47,11 +50,7 @@ table_codes <- c(
     "501", "502"
 )
 
-table_list <- list()
-
-n_tables <- length(table_codes)
-
-for (i in 1:n_tables) {
+for (i in 1:length(table_codes)) {
     code <- table_codes[i]
     name <- table_names[i]
     
@@ -97,11 +96,10 @@ for (i in 1:n_tables) {
         
         if (nrow(data) > 0) {
             data$is_footnote <- cumsum(data[, 1] == "footnote_SeqID")
-            
+
             footnotes <- data %>% filter(is_footnote == 1)
             footnotes <- footnotes[2:nrow(footnotes), 1:2]
             colnames(footnotes) <- c("footnote_id", "footnote")
-            
             data %<>% filter(!is_footnote) %>% select(-is_footnote)
             data_footnotes <- data %>% pull(`Value Footnotes`) %>% strsplit(split = ",", fixed = TRUE)
             
@@ -117,23 +115,21 @@ for (i in 1:n_tables) {
                 }
             }
             data %<>% select(-starts_with("Value Footnotes"))
-            
             table <- bind_rows(table, data)
-        }
-        
+        }     
         cat("DONE\n")
     }
     table <- clean_names(table, case = "snake")
-    write_dta(table, glue("{code}.dta"))
+    write_dta(table, glue("/wid-world/work-data/un-sna-{code}.dta"))
 }
 
 END_OF_R
 
 // Combine various tables to make sure we're not missing anything
-use "$input_data_dir/un-sna/101.dta", clear
-append using "$input_data_dir/un-sna/103.dta"
-append using "$input_data_dir/un-sna/201.dta"
-append using "$input_data_dir/un-sna/401.dta", force
+use "$work_data/un-sna/101.dta", clear
+append using "$work_data/un-sna/103.dta"
+append using "$work_data/un-sna/201.dta"
+append using "$work_data/un-sna/401.dta", force
 
 keep if sna93_item_code == "B.1*g"
 drop sna93_table_code

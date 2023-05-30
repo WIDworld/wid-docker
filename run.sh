@@ -23,7 +23,7 @@ else
 fi
 
 # ensure that the directories are writable by Docker
-chmod a+rwX wid-world 
+chmod a+rwX /wid-world 
 
 # Run container with bash
 time docker run $DOCKEROPTS \
