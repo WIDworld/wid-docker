@@ -47,7 +47,7 @@ label var p0p50   "Bottom 50% income share"
 label var p90p100 "Top 10% income share"   
 label var p99p100 "Top 1% income share"   
 
-br if year == 2021
+// br if year == 2021
 
 gsort year p0p50
 bys year (p0p50) : generate nb_bottom_p0p50 = _n
@@ -168,7 +168,7 @@ label var p0p50   "Bottom 50% wealth share"
 label var p90p100 "Top 10% wealth share"   
 label var p99p100 "Top 1% wealth share"   
 
-br if year == 2021
+// br if year == 2021
 
 gsort year p0p50
 bys year (p0p50) : generate nb_bottom_p0p50 = _n
@@ -347,7 +347,7 @@ label var p0p50   "Bottom 50% average income"
 label var p90p100 "Top 10% average income"   
 label var p99p100 "Top 1% average income"   
 
-br if year == 2021
+// br if year == 2021
 
 gsort year p0p50
 bys year (p0p50) : generate nb_bottom_p0p50 = _n
@@ -450,7 +450,7 @@ label var p0p50   "Bottom 50% average wealth"
 label var p90p100 "Top 10% average wealth"   
 label var p99p100 "Top 1% average wealth"   
 
-br if year == 2021
+// br if year == 2021
 
 gsort year p0p50
 bys year (p0p50) : generate nb_bottom_p0p50 = _n
@@ -565,7 +565,7 @@ drop last_year
 
 label var gptinc992j   "Gini coefficient of income"   
 
-br if year == 2021
+// br if year == 2021
 
 gsort year gptinc992j
 bys year (gptinc992j) : generate nb_bottom = _n
@@ -608,7 +608,7 @@ drop last_year
 
 label var ghweal992j   "Gini coefficient of wealth"   
 
-br if year == 2021
+// br if year == 2021
 
 gsort year ghweal992j
 bys year (ghweal992j) : generate nb_bottom = _n
@@ -677,7 +677,7 @@ drop last_year
 
 label var aptinc992j   "average national income - adult pop"   
 
-br if year == 2021
+// br if year == 2021
 
 gsort year aptinc992j
 bys year (aptinc992j) : generate nb_bottom = _n
@@ -720,7 +720,7 @@ drop last_year
 
 label var ahweal992j   "average national wealth - adult pop"   
 
-br if year == 2021
+// br if year == 2021
 
 gsort year ahweal992j
 bys year (ahweal992j) : generate nb_bottom = _n

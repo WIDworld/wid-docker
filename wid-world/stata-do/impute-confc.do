@@ -252,7 +252,7 @@ drop confc
 
 merge 1:1 iso year using "$work_data/confc-imputed.dta", nogenerate
 
-br iso year confc cfc?? if iso == "DO"
+// br iso year confc cfc?? if iso == "DO"
 
 // Flag to indicate that we force original CFC values to be replaced by the
 // imputation (when CFC values are absurd)

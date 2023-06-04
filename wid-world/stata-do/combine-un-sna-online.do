@@ -192,7 +192,7 @@ enforce (comhn = com_vahn + comnx) ///
 		(saghn = sagho + sagnp), fixed(prghn cfchn) replace
 		
 sort iso series year
-br iso year series ccmhn ccshn cfchn gmxhn nmxhn gsrhn nsrhn gsmhn nsmhn if iso == "AU"
+// br iso year series ccmhn ccshn cfchn gmxhn nmxhn gsrhn nsrhn gsmhn nsmhn if iso == "AU"
 
 // Corporate sector
 enforce /// Combined sectors, primary income

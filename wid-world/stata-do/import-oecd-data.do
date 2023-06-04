@@ -3,13 +3,13 @@
 // -------------------------------------------------------------------------- //
 
 unzipfile "$input_data_dir/oecd-data/national-accounts/SNA_TABLE14A_ARCHIVE_19042021180740312.csv.zip", replace
-import delimited "$input_data_dir/oecd-data/national-accounts/SNA_TABLE14A_ARCHIVE_19042021180740312.csv", clear encoding(utf8)
+import delimited "$work_data/SNA_TABLE14A_ARCHIVE_19042021180740312.csv", clear encoding(utf8)
 generate series = 10000
 tempfile oecd
 save "`oecd'"
 
 unzipfile "$input_data_dir/oecd-data/national-accounts/SNA_TABLE14A_19042021180438124.csv.zip", replace
-import delimited "$input_data_dir/oecd-data/national-accounts/SNA_TABLE14A_19042021180438124.csv", clear encoding(utf8)
+import delimited "$work_data/SNA_TABLE14A_19042021180438124.csv", clear encoding(utf8)
 generate series = 20000
 append using "`oecd'"
 
@@ -27,7 +27,7 @@ save "$work_data/current-gdp-oecd.dta", replace
 // Import data from the different sectors
 // -------------------------------------------------------------------------- //
 
-import delimited "$input_data_dir/oecd-data/national-accounts/SNA_TABLE14A_19042021180438124.csv", clear encoding(utf8)
+import delimited "$work_data/SNA_TABLE14A_19042021180438124.csv", clear encoding(utf8)
 generate series = 20000
 append using "`oecd'"
 
