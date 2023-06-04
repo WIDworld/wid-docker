@@ -35,36 +35,61 @@ rename mhsavi999i savho
 rename mhsdep999i cfcho
 rename mhsgro999i sagho
 rename misavi999i savnp
-rename misdep999i cfcnp
-rename misgro999i sagnp
-rename mnnfin999i nnfin
-rename mnninc999i nninc
-rename mnsavi999i savin
-rename mnsgro999i savig
-rename mnvatp999i ptxgo
+capture confirm variable misdep999i
+if (_rc == 0) {
+   rename misdep999i cfcnp
+}
+capture confirm variable misgro999i
+if (_rc == 0) {
+   rename misgro999i sagnp
+}
+capture confirm variable mnnfin999i
+if (_rc == 0) {
+   rename mnnfin999i nnfin
+}
+capture confirm variable mnninc999i
+if (_rc == 0) {
+   rename mnninc999i nninc
+}
+capture confirm variable mnsavi999i
+if (_rc == 0) {
+   rename mnsavi999i savin
+}
+capture confirm variable mnsgro999i
+if (_rc == 0) {
+   rename mnsgro999i savig
+}
+capture confirm variable mnvatp999i
+if (_rc == 0) {
+   rename mnvatp999i ptxgo
+}
 drop *999i
 dropmiss confc-ptxgo, obs force
 
 // Ensure consistency
 generate gdpro = 1
-generate cfchn = .
-generate savhn = .
-generate saghn = .
+foreach var in "cfchn" "savhn" "saghn" "cfcnp" "sagnp" {
+	capture confirm variable `var'
+	if (_rc != 0) {
+   		generate `var' = .
+	}
+}
 
 enforce /// National income
         (nninc = gdpro - confc + nnfin) ///
-		/// Consumption of fixed capital
+	/// Consumption of fixed capital
         (confc = cfcco + cfchn + cfcgo) ///
-		(cfchn = cfcnp + cfcho) ///
-		/// National savings
-		(savig = savin + confc) ///
-		(savin = savhn + savgo + secco) ///
-		/// Savings by sector
-		(saghn = savhn + cfchn) ///
-		(sagho = savho + cfcho) ///
-		(sagnp = savnp + cfcnp) ///
-		(saggo = savgo + cfcgo) ///
-		(segco = secco + cfcco), fixed(gdpro) replace
+	(cfchn = cfcnp + cfcho) ///
+	/// National savings
+	(savig = savin + confc) ///
+	(savin = savhn + savgo + secco) ///
+	/// Savings by sector
+	(saghn = savhn + cfchn) ///
+	(sagho = savho + cfcho) ///
+	(sagnp = savnp + cfcnp) ///
+	(saggo = savgo + cfcgo) ///
+	(segco = secco + cfcco), ///
+	fixed(gdpro) replace
 
 generate series = 200000
 
