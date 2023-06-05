@@ -1,6 +1,3 @@
-
-
-
 // World and regions Aggregates in Both PPP & MER
 // Removed Syria because no PPP hence it cause missings at the regional levels XM XN
 
@@ -51,14 +48,6 @@ global OJ  AO BF BI BJ BW CD CF CG CI CM CV DJ ER ET GA GH GM GN GQ GW KE KM LR 
 global WO  AD AE AF AG AI AL AM AO AR AS AT AU AW AZ BA BB BD BE BF BG BH BI BJ BM BN BO BR BS BT BW BY BZ CA CD CF CG CH CI CK CL CM CN CO CR CS CU CV CW CY CZ DE DJ DK DM DO DZ EC EE EG ER EH ES ET FI FJ FM FO FR GA GB GD GE GH GL GM GN GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IM IN IQ IR IS IT JM JO JP KE KG KH KI KM KN KR KS KS KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MG MH MK ML MM MN MO MP MR MS MT MU MV MW MX MY MZ NA NC NE NG NI NL NO NP NR NZ OM PA PE PF PG PH PK PL PR PS PT PW PY QA RO RS RU RW SA SB SC SD SE SG SI SK SL SM SN SO SR SS ST SU SV SX SY SZ TC TD TG TH TJ TL TM TN TO TR TT TV TW UA UG US UY UZ VC VE VG VI VN VU WS XI YE YU ZA ZM ZW ZZ
 
 global all  QB QD QE QF QJ QK QL QM QN QO QP QS QT QU QV QW QX QY XA XB XF XL XM XN XR XS OA OB OC OD OE OI OJ WO
-
-* R path depending on OS
-if "`c(os)'"=="MacOSX" | "`c(os)'"=="UNIX" {
-    global Rpath "/usr/local/bin/R"
-}
-else {  // windows, change version number if necerssary
-    global Rpath `"c:\r\R-3.5.1\bin\Rterm.exe"') 
-}
 
 // ******************************************* //
 
@@ -257,58 +246,49 @@ save "$work_data/regions_temp.dta", replace
 
 rsource, terminator(END_OF_R) rpath("$Rpath") roptions(--vanilla)
 
+library(haven)
+library(dplyr)
+library(purrr)
+library(gpinter)
 
-rm(list = ls())
-
-library(pacman)
-p_load(magrittr)
-p_load(dplyr)
-p_load(readr)
-p_load(haven)
-p_load(tidyr)
-p_load(gpinter)
-p_load(purrr)
-p_load(stringr)
-p_load(ggplot2)
-p_load(glue)
-p_load(progress)
-p_load(zoo)
-p_load(ggrepel)
-p_load(countrycode)
-options(dplyr.summarise.inform = FALSE)
-
-setwd("~/Documents/GitHub/wid-world/work-data")
-data <- read_dta("~/Documents/GitHub/wid-world/work-data/regions_temp.dta")
+setwd("/wid-world/work-data")
+data <- read_dta("regions_temp.dta")
 
 gperc <- c(
   seq(0, 99000, 1000), seq(99100, 99900, 100),
   seq(99910, 99990, 10), seq(99991, 99999, 1)
 )
 
-countries <- unique(data$iso) 
 regions = list()
 i <- 1
-for (concept in c("i","w","d")){
-  for (iso in countries){
-    for (x in c("MER","PPP")){
-      region <- data[data$iso==iso & data$concept==concept & data$x==x & !is.na(data$a),] %>% group_by(year) %>% group_split() %>% map_dfr(~ {
-        dist <- shares_fit(
-          bracketavg = .x$a,
-          p = .x$p/1e5,
-          fast = TRUE
-        )
-        
-        return(as.data.frame(
-          generate_tabulation(dist, gperc/1e5)) 
-          %>% mutate(year = .x$year[1],
-                     p = round(fractile*1e5),
-                     n = diff(c(p, 1e5)),
-                     ts = top_share,
-                     bs = bottom_share,
-                     s = bracket_share,
-                     a = bracket_average)
-        )
-      })
+for (concept in c("i","w","d")) {
+  for (iso in sort(unique(data$iso))) {
+    for (x in c("MER", "PPP")) {
+      print(paste("On concept:", concept, "iso:", iso, "and x:", x))
+      region <- data %>% 
+        filter(
+          concept == concept, iso == iso, x == x,
+          !is.na(a)
+        ) %>%
+        group_by(year) %>% 
+        group_split() %>% 
+        map_dfr(~ {
+          dist <- shares_fit(
+            bracketavg = .x$a,
+            p = .x$p/1e5,
+            fast = TRUE
+          )
+          return(as.data.frame(
+            generate_tabulation(dist, gperc/1e5)) %>% 
+            mutate(year = .x$year[1],
+                   p = round(fractile*1e5),
+                   n = diff(c(p, 1e5)),
+                   ts = top_share,
+                   bs = bottom_share,
+                   s = bracket_share,
+                   a = bracket_average)
+          )
+        })
       region$iso <- iso
       region$concept <- concept
       region$x <- x
@@ -317,12 +297,12 @@ for (concept in c("i","w","d")){
     }
   }
 }
+
 regions <- do.call(rbind, regions)
-
-write_dta(regions, "~/Documents/GitHub/wid-world/work-data/regions_temp2.dta") 
-
+write_dta(regions, "regions_temp2.dta") 
 
 END_OF_R
+
 
 /**/
 use "$work_data/regions_temp2.dta", clear

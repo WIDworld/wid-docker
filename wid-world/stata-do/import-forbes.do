@@ -1,12 +1,3 @@
-
-* R path
-if "`c(os)'"=="MacOSX" | "`c(os)'"=="UNIX" {
-    global Rpath "/usr/local/bin/R"
-}
-else {  
-    global Rpath "C:\Users\f.bajard\Documents\R\R-3.5.3\bin\R.exe" 
-}
-
 ****  This do-file imports and matches Forbes data to wealth distributions  ****
 
 

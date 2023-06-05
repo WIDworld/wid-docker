@@ -1,5 +1,3 @@
-
-
 **** This do-file corrects the top of wealth distributions with Forbes data ****
 
 
@@ -7,71 +5,72 @@
 
 rsource, terminator(END_OF_R) rpath("$Rpath") roptions(--vanilla)
 
-rm(list = ls())
+write_billionaires <- function(filename) {
 
-library(pacman)
-p_load(magrittr)
-p_load(dplyr)
-p_load(readr)
-p_load(haven)
-p_load(tidyr)
-p_load(gpinter)
-p_load(purrr)
-p_load(stringr)
-p_load(ggplot2)
-p_load(glue)
-p_load(progress)
-p_load(zoo)
-p_load(ggrepel)
-p_load(countrycode)
-p_load(devtools)
-options(dplyr.summarise.inform = FALSE)
-devtools::install_github("thomasblanchet/gpinter")
+  library(haven)
+  library(dplyr)
+  library(purrr)
+  library(gpinter)
 
-setwd("~/Documents/GitHub/wid-world/work-data/")
-data <- read_dta("wealth-distributions-matched-forbes.dta") %>% filter(iso!="CU" & iso!="KP")
+  data <- read_dta("wealth-distributions-matched-forbes.dta") %>% 
+    filter(iso!="CU" & iso!="KP")
 
-billionaires_threshold <- data %>% ungroup() %>% filter(iso == "US") %>%
-  transmute(year, threshold_mer = 1e9/xlceux999i/inyixx999i, threshold_ppp = 1e9/xlceup999i/inyixx999i) %>% distinct()
+  billionaires_threshold <- data %>% 
+    ungroup() %>% 
+    filter(iso == "US") %>%
+    transmute(year, threshold_mer = 1e9/xlceux999i/inyixx999i, threshold_ppp = 1e9/xlceup999i/inyixx999i) %>% distinct()
 
-gperc <- c(
-  seq(0, 99000, 1000), seq(99100, 99900, 100),
-  seq(99910, 99990, 10), seq(99991, 99999, 1)
-)
-countries <- unique(data$iso) 
-wid_billionaires_mer = list()
-i<-1
+  gperc <- c(
+    seq(0, 99000, 1000), seq(99100, 99900, 100),
+    seq(99910, 99990, 10), seq(99991, 99999, 1)
+  )
+  countries <- unique(data$iso) 
+  wid_billionaires_mer = list()
+  i<-1
 
-for (country in countries){
-  country_billionaires_mer <- data[data$iso==country & !is.na(data$a_mer),] %>% left_join(billionaires_threshold) %>% group_by(year) %>% group_split() %>% map_dfr(~ {
-    dist <- shares_fit(
-      average = .x$average_mer[1],
-      bracketavg = .x$a_mer,
-      p = .x$p/1e5,
-      fast = TRUE
-    )
-    tabulation <- generate_tabulation(dist,gperc)
-    
-    return(tibble(
-      year = .x$year[1],
-      frac_mer = max(1 - fitted_cdf(dist, .x$threshold_mer[1]),1e-13),
-      wealth_mer = top_average(dist, 1 - frac_mer),
-      invp_mer = tabulation$invpareto[head(tail(tabulation$invpareto, n=2),n=1)]
-    ))
-  })
-  country_billionaires_mer$iso <- country
-  wid_billionaires_mer[[i]] <- country_billionaires_mer
-  i<-i+1
+  for (country in countries){
+    country_billionaires_mer <- data[data$iso==country & !is.na(data$a_mer),] %>% 
+      left_join(billionaires_threshold) %>% 
+      group_by(year) %>% 
+      group_split() %>% 
+      map_dfr(~ {
+        dist <- shares_fit(
+          average = .x$average_mer[1],
+          bracketavg = .x$a_mer,
+          p = .x$p/1e5,
+          fast = TRUE
+      )
+      tabulation <- generate_tabulation(dist,gperc)
+      
+      return(tibble(
+        year = .x$year[1],
+        frac_mer = max(1 - fitted_cdf(dist, .x$threshold_mer[1]),1e-13),
+        wealth_mer = top_average(dist, 1 - frac_mer),
+        invp_mer = tabulation$invpareto[head(tail(tabulation$invpareto, n=2),n=1)]
+      ))
+    })
+    country_billionaires_mer$iso <- country
+    wid_billionaires_mer[[i]] <- country_billionaires_mer
+    i<-i+1
+  }
+  wid_billionaires_mer <- do.call(rbind, wid_billionaires_mer)
+
+  wid_billionaires <- wid_billionaires_mer %>% 
+    left_join(data %>% select(npopul992i,iso,year)) %>%
+    mutate(num_wid_mer = frac_mer*npopul992i, wealth_wid_mer = num_wid_mer*wealth_mer) %>% 
+    distinct()
+
+  data <- data %>% left_join(wid_billionaires)
+
+  write_dta(data, filename)
 }
-wid_billionaires_mer <- do.call(rbind, wid_billionaires_mer)
 
+filename <- "wealth-distributions-billionaires.dta"
+setwd("/wid-world/work-data/")
 
-wid_billionaires <- wid_billionaires_mer %>% left_join(data %>% select(npopul992i,iso,year)) %>%
-  mutate(num_wid_mer = frac_mer*npopul992i, wealth_wid_mer = num_wid_mer*wealth_mer) %>% distinct()
-
-data <- data %>% left_join(wid_billionaires)
-
-write_dta(data, "wealth-distributions-billionaires.dta")
+if (!file.exists(filename)) {
+  write_billionaires(filename)
+}
 
 END_OF_R
 
