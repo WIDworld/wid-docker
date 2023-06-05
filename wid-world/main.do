@@ -331,13 +331,14 @@ do "$do_dir/export-metadata-other.do"
 
 // Create flag variables to indicate extrapolation/interpolations
 do "$do_dir/create-flag-variables.do"
+// Problem with reshape long to wide !
 
 // Export the units
 do "$do_dir/export-units.do"
 
 // Export the main database
 do "$do_dir/create-main-db.do"
-do "$do_dir/export-main-db.do"
+// do "$do_dir/export-main-db.do"
 
 // Export the list of countries
 do "$do_dir/export-countries.do"
@@ -350,31 +351,33 @@ do "$do_dir/make-variable-tree.do"
 // -------------------------------------------------------------------------- //
 
 // Export the list of countries
-do "$do_dir/update-report.do"
+// do "$do_dir/update-report.do"
+// NEEDS UPDATING ^
 
 // -------------------------------------------------------------------------- //
 // Report some of the results
 // -------------------------------------------------------------------------- //
 
 // Compare the world distribution of NNI vs. GDP
-do "$do_dir/gdp-vs-nni.do"
+// do "$do_dir/gdp-vs-nni.do"
 
 // Evolution of GDP and population in all countries
-do "$do_dir/plot-gdp-population.do"
+// do "$do_dir/plot-gdp-population.do"
 
 // Evolution of CFC and NFI in selected countries
-do "$do_dir/plot-cfc-nfi.do"
+// do "$do_dir/plot-cfc-nfi.do"
 
 // -------------------------------------------------------------------------- //
 // Sanity checks when updating database to a new year
 // -------------------------------------------------------------------------- //
 
-do "$do_dir/update-check.do"
-
+// do "$do_dir/update-check.do"
+// NEEDS UPDATING ^
 
 
 // -------------------------------------------------------------------------- //
 // Summary table
 // -------------------------------------------------------------------------- //
 
-do "$do_dir/create-summary-table.do"
+// do "$do_dir/create-summary-table.do"
+// NEEDS UPDATING ^, wid-final-table.dta ?

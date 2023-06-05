@@ -17,7 +17,7 @@ foreach v of varlist * {
 egen tokeep = rownonmiss(agdpro992i-xlcyux999i)
 keep if tokeep
 drop tokeep
-export delimited "~/Desktop/middle-east.csv", delimiter(";") replace
+export delimited "$output_dir/$time/middle-east.csv", delimiter(";") replace
 */
 /*
 keep if strpos(Alpha2, "US-")
@@ -30,14 +30,14 @@ foreach v of varlist * {
 egen tokeep = rownonmiss(afiinc992t-xlcyux999i)
 keep if tokeep
 drop tokeep
-export delimited "~/Desktop/us-states.csv", delimiter(";") replace
+export delimited "$output_dir/$time/us-states.csv", delimiter(";") replace
 */
 /*
 keep Alpha2 perc year ?nw*
 egen tokeep = rownonmiss(anwagr992i-mnwodk999i)
 keep if tokeep
 drop tokeep
-export delimited "~/Desktop/national-wealth.csv", delimiter(";") replace
+export delimited "$output_dir/$time/national-wealth.csv", delimiter(";") replace
 */
 
 ds Alpha2 year perc currency, not

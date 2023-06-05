@@ -27,4 +27,4 @@ rename p   perc
 order Alpha2 year perc widcode
 export delim "$output_dir/$time/wid-data-$time.csv", delimiter(";") replace
 
-etime
+// etime

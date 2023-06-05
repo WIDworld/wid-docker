@@ -4,11 +4,18 @@
 
 use "$work_data/metadata-final.dta", clear
 
-rename Alpha2 iso
-rename Method method
-rename Source source
-rename TwoLet twolet
-rename ThreeLet threelet
+capture confirm variable alpha2
+if (_rc == 0) {
+   rename alpha2 iso
+}
+capture confirm variable Alpha2
+if (_rc == 0) {
+   rename alpha2 iso
+}
+// rename Method method
+// rename Source source
+// rename TwoLet twolet
+// rename ThreeLet threelet
 
 generate sixlet = twolet + threelet
 
