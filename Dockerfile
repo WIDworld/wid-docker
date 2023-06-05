@@ -19,6 +19,11 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         software-properties-common \
         gnupg \
+        curl \
+        sudo cmake \
+        libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev \
+        libharfbuzz-dev libfribidi-dev \
+        libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
     && apt-key adv \
         --keyserver keyserver.ubuntu.com \
         --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
@@ -38,6 +43,8 @@ RUN R -e "install.packages('magrittr', repos = 'http://cran.us.r-project.org')"
 RUN R -e "install.packages('dplyr', repos = 'http://cran.us.r-project.org')"
 RUN R -e "install.packages('glue', repos = 'http://cran.us.r-project.org')"
 RUN R -e "install.packages('janitor', repos = 'http://cran.us.r-project.org')"
+RUN R -e "install.packages('devtools', repos = 'http://cran.us.r-project.org')"
+RUN R -e "devtools::install_github('thomasblanchet/gpinter')"
 
 # Copy Stata license 
 RUN --mount=type=secret,id=statalic \
@@ -45,8 +52,9 @@ RUN --mount=type=secret,id=statalic \
     && chmod a+r /usr/local/stata/stata.lic
 
 # Set up `wid-world` and install Stata requirements
-COPY ./wid-world /wid-world
-RUN stata -q do /wid-world/stata-do/install | tee /var/log/install.log
+RUN mkdir -p /wid-world/config
+COPY ./wid-world/stata-do/install.do /wid-world/config/
+RUN stata-mp -q do /wid-world/config/install | tee /wid-world/config/install.log
 
 # Working directory
 WORKDIR /wid-world

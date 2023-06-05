@@ -7,6 +7,11 @@ These short instructions should get you up and running fairly quickly with the `
 
 This repository is generated from `AEADataEditor/stata-project-with-docker`. 
 
+## TODO
+
+- [ ] Add run-shell, run-main scripts?
+
+
 ## Requirements
 
 You will need 
@@ -33,18 +38,20 @@ To run this in the cloud, you will need
 4. [ ] [Build the Docker image](#build-the-image)
 5. [ ] [Run the Docker image](#run-the-image)
 
-### Leveraging cloud functionality
+However, this can be time and memory intensive! I recommend downloading a pre-built image as per the following section.
 
-6. [ ] Upload the image to Docker Hub
-7. [ ] Sync your code with your Github repository (which you created in Step 1, by using the template or forking)
-8. [ ] Configure your Stata license in the cloud (securely)
-9. [ ] Verify that the code runs in the cloud
 
-If you want to go the extra step
+### Download pre-built image
 
-10. [ ] Setup building the Docker image in the cloud
+More simply, you can download pre-built image from Docker Hub!
+
+1. [ ] Find the appropriate image from [Docker Hub](https://hub.docker.com/repository/docker/mcamacho10/wid-world/general).
+2. [ ] Run `docker pull mcamacho10/wid-world:tagname`
+
 
 ## Details
+
+If downloading pre-built image, skip to [running the image](#run-the-image).
 
 ### Adjust the Dockerfile
 
@@ -110,10 +117,13 @@ source build.sh
 
 ### Run the image
 
-The script [`run.sh`](run.sh) will pick up the configuration information in `config.txt`, and run your project inside the container image. If you have a terminal session open where you have already followed steps 1-3 in [Build the image](#build-the-image), you can simple run `source run.sh`. Otherwise, follow steps 1 and 2 above and then run `source run.sh`.
+The script [`run.sh`](run.sh) will pick up the configuration information in `config.txt`, and run your project inside the container image. By default the project will just run a shell container. If you have a terminal session open where you have already followed steps 1-3 in [Build the image](#build-the-image), you can simple run `source run.sh`. Otherwise, follow steps 1 and 2 above and then run `source run.sh`.
 
 - The image maps the familiar `wid-world/` sub-directory in the sample repository into the image as `/wid-world`. As a result, output will appear **locally** in e.g. `wid-world/work-data` and be preserved once the Docker image is stopped (and deleted).
 - If you need additional sub-directories availabe in the image, you will need to map them, using additional `-v` lines.
+
+Once built, you can navigate into your container and explore your new virtual environment using `docker exec -it run <CONTAINER_NAME> bash`.
+
 
 ## Cloud functionality
 

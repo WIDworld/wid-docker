@@ -1,0 +1,7 @@
+MYHUBID=mcamacho10				
+MYIMG=wid-world	
+TAG=$(date +%F)  
+# Local filepath to Stata license				
+STATALIC=/usr/local/Stata/stata.lic
+# Local filepath to Dropbox W2ID directory
+DROPBOX=${HOME}/Dropbox/W2ID

@@ -22,14 +22,10 @@ else
    DOCKERIMG=$(echo $MYHUBID/$MYIMG | tr [A-Z] [a-z])
 fi
 
-# ensure that the directories are writable by Docker
-chmod a+rwX /wid-world 
-
 # Run container with bash
 time docker run $DOCKEROPTS \
   -v ${DROPBOX}:/W2ID \
   -v $(pwd)/wid-world:/wid-world \
-  -v /var/log:/var/log \
   --platform linux/arm64/v8 \
   $DOCKERIMG:$TAG \
   /bin/bash
