@@ -187,23 +187,6 @@ drop if missing(sptinc992j)
 
 bys iso year source: generate n = _N
 
-/*
-levelsof iso if !missing(sptinc992j) & inlist(p, 90000, 99000), local(iso)
-foreach cc of local iso {
-	count if (!missing(sfiinc992i) | !missing(sfiinc992t)) & iso == "`cc'"
-	
-	if (r(N) > 0) {
-		gr tw connected sfiinc992i sfiinc992t sptinc992j year if iso == "`cc'" & inlist(p, 90000), ///
-			yscale(range(0.1 0.7)) ylabel(0.1(0.1)0.7)
-		graph export "~/Dropbox/W2ID/WIDGraphsTables/pretax-extrapolations/`cc'-top10.pdf", replace
-		
-		gr tw connected sfiinc992i sfiinc992t sptinc992j year if iso == "`cc'" & inlist(p, 99000), ///
-			yscale(range(0 0.4)) ylabel(0(0.1)0.4)
-		graph export "~/Dropbox/W2ID/WIDGraphsTables/pretax-extrapolations/`cc'-top1.pdf", replace
-	}
-}
-*/
-
 
 save "$work_data/extrapolate-pretax-intermediate-output.dta", replace 
 

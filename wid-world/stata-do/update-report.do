@@ -27,7 +27,7 @@ qui count
 if r(N)==0{
 	set obs 1
 	gen nochange="No change in data"
-	export excel "$wid_dir/Country-Updates/WID Data updates/$olddate-to-$time.xlsx", replace
+	export excel "$updates/WID Data updates/$olddate-to-$time.xlsx", replace
 	exit, clear
 }
 

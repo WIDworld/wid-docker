@@ -1,5 +1,5 @@
 
-import excel "$wid_dir/Country-Updates/Spain/2017/Spain_WID.world.xlsx", clear
+import excel "$updates/Spain/2017/Spain_WID.world.xlsx", clear
 
 // Drop personal and non-profit sector
 drop AD-BO

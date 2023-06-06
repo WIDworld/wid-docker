@@ -13,7 +13,7 @@ keep iso year p valuenpopul999i
 tempfile pop
 save "`pop'"
 
-use "$wid_dir/Country-Updates/Carbon/macro/April_2021/carbon.dta", clear
+use "$updates/Carbon/macro/April_2021/carbon.dta", clear
 merge n:1 iso year using "`pop'", nogenerate keep(match)
 
 replace value = value*1e6
@@ -35,15 +35,15 @@ drop dup
 tempfile percapita
 save `percapita'
 
-use "$wid_dir/Country-Updates/Carbon/macro/April_2021/carbon.dta", clear
+use "$updates/Carbon/macro/April_2021/carbon.dta", clear
 drop if missing(year)
 append using "`percapita'"
 drop if strpos(widcode, "gf")
 drop if strpos(widcode, "if")
 drop if strpos(widcode, "of")
 
-append using "$wid_dir/Country-Updates/Carbon/distribution/September_2022/carbon-distribution-2022.dta"
-// append using "$wid_dir/Country-Updates/Carbon/distribution/July_2021/agg-carbon-distribution-2021.dta"
+append using "$updates/Carbon/distribution/September_2022/carbon-distribution-2022.dta"
+// append using "$updates/Carbon/distribution/July_2021/agg-carbon-distribution-2021.dta"
 keep iso year p widcode value
 
 duplicates tag iso year widcode p, gen(dup)
@@ -60,9 +60,9 @@ save "$work_data/add-carbon-series-output.dta", replace
 
 // Metadata
 use "$work_data/merge-historical-main-metadata.dta", clear 
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Carbon/macro/April_2021/carbon-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/Carbon/macro/April_2021/carbon-metadata.dta", update replace nogen
 drop if strpos(sixlet, "ifghg")
-// merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Carbon/distribution/July_2021/agg-carbon-distribution-2021-metadata.dta", update replace nogen
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Carbon/distribution/September_2022/carbon-distribution-2022-metadata.dta", update replace nogen
+// merge 1:1 iso sixlet using "$updates/Carbon/distribution/July_2021/agg-carbon-distribution-2021-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/Carbon/distribution/September_2022/carbon-distribution-2022-metadata.dta", update replace nogen
 
 save "$work_data/add-carbon-series-metadata.dta", replace

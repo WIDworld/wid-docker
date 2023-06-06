@@ -6,7 +6,7 @@ foreach c in `countries'{
 di "`c'..."
 qui{
 	preserve
-	import excel "$wid_dir/Country-Updates/`c'/2017/August/`c'_WID.world.xlsx", clear
+	import excel "$updates/`c'/2017/August/`c'_WID.world.xlsx", clear
 
 	// Clean
 	dropmiss, force

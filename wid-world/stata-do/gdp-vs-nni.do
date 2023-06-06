@@ -120,10 +120,10 @@ summarize mgdpro999i if (region2 == "Oceania (excl. Australia and New Zealand)")
 local gdp_othoce = r(sum)
 
 if ($world_summary_market) {
-	putexcel set "$report_output/world-summary/TableX_GDPNNI_MER_${pastyear}_$pop_summary.xlsx", modify sheet("Table X")
+	putexcel set "$output_dir/world-summary/TableX_GDPNNI_MER_${pastyear}_$pop_summary.xlsx", modify sheet("Table X")
 }
 else {
-	putexcel set "$report_output/world-summary/TableX_GDPNNI_PPP_${pastyear}_$pop_summary.xlsx", modify sheet("Table X")
+	putexcel set "$output_dir/world-summary/TableX_GDPNNI_PPP_${pastyear}_$pop_summary.xlsx", modify sheet("Table X")
 }
 
 putexcel D4 = (`gdp_world'/1e12)

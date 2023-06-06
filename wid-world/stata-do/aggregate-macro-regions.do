@@ -122,7 +122,7 @@ preserve
 	order region AD
 	gsort region year
 	
-	export excel "$wid_dir/wid-regions-list.xlsx", sheet("WID", replace) firstrow(variables)
+	export excel "$input_data_dir/wid-regions-list.xlsx", sheet("WID", replace) firstrow(variables)
 restore
 
 

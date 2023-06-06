@@ -1,4 +1,4 @@
-import excel "$wid_dir/Country-Updates/Brazil/Brazil inequality series.xlsx", sheet("series") first case(l) clear
+import excel "$updates/Brazil/Brazil inequality series.xlsx", sheet("series") first case(l) clear
 destring year, replace
 levelsof year, local(years)
 levelsof component, local(types)
@@ -10,12 +10,12 @@ foreach year in `years'{
 		// Define widcodes and open corresponding sheets
 		if "`type'"=="Fiscal income"{
 			local inc fiinc
-			import excel "$wid_dir/Country-Updates/Brazil/Brazil inequality series.xlsx", ///
+			import excel "$updates/Brazil/Brazil inequality series.xlsx", ///
 				sheet("Fiscal income, Brazil, `year'") first clear
 		}
 		if "`type'"=="National income"{
 			local inc ptinc
-			import excel "$wid_dir/Country-Updates/Brazil/Brazil inequality series.xlsx", ///
+			import excel "$updates/Brazil/Brazil inequality series.xlsx", ///
 				sheet("National income, Brazil, `year'") first clear
 		}
 	

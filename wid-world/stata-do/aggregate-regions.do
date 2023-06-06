@@ -157,7 +157,7 @@ preserve
 	}
 	renvars value*, predrop(5)
 	
-	export excel "$wid_dir/wid-regions-list.xlsx", sheet("WID", replace) firstrow(variables)
+	export excel "$input_data_dir/wid-regions-list.xlsx", sheet("WID", replace) firstrow(variables)
 restore
 
 // Convert to common currencies

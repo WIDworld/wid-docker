@@ -1,13 +1,13 @@
 // Import and convert to WID format
 
-import excel "$wid_dir/Country-Updates/Germany/2017/August/Gpinter_output_DE.xlsx", sheet("series") first clear
+import excel "$updates/Germany/2017/August/Gpinter_output_DE.xlsx", sheet("series") first clear
 renvars _all, lower
 destring year, replace
 levelsof year, local(years)
 
 foreach year in `years'{
 	qui{
-		import excel "$wid_dir/Country-Updates/Germany/2017/August/Gpinter_output_DE.xlsx", ///
+		import excel "$updates/Germany/2017/August/Gpinter_output_DE.xlsx", ///
 		sheet("total, DE, `year'") first clear
 
 		// Clean and extend

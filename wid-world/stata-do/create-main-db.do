@@ -18,7 +18,8 @@ save "$work_data/wid-long.dta", replace
 // append using "$work_data/add-carbon-series-output.dta"
 compress
 
-save "$wid_dir/Latest_Updated_WID/wid-data.dta", replace
+cap mkdir "$output_dir/Latest_Updated_WID"
+save "$output_dir/Latest_Updated_WID/wid-data.dta", replace
 drop if missing(year)
 keep iso year p widcode value 
 

@@ -1,6 +1,6 @@
-cap mkdir "$report_output/nni-regions"
-cap mkdir "$report_output/nni-regions/NNIs"
-cap mkdir "$report_output/nni-regions/NNIs-world"
+cap mkdir "$output_dir/nni-regions"
+cap mkdir "$output_dir/nni-regions/NNIs"
+cap mkdir "$output_dir/nni-regions/NNIs-world"
 
 use "$work_data/wid-final.dta", clear
 
@@ -158,13 +158,13 @@ lab var world "World"
 tsset year
 
 tsline eu28 usca
-graph export "$report_output/nni-regions/NNIs/Europe vs. US_Canada.pdf", replace
+graph export "$output_dir/nni-regions/NNIs/Europe vs. US_Canada.pdf", replace
 
 tsline othafrica cn
-graph export "$report_output/nni-regions/NNIs/Subsaharian Africa vs. China.pdf", replace
+graph export "$output_dir/nni-regions/NNIs/Subsaharian Africa vs. China.pdf", replace
 
 tsline latinamer othasia
-graph export "$report_output/nni-regions/NNIs/Latin America vs. Other Asia.pdf", replace
+graph export "$output_dir/nni-regions/NNIs/Latin America vs. Other Asia.pdf", replace
 
 // Normalize by world GDP
 ds year world, not
@@ -180,13 +180,13 @@ renpfix w_
 tsset year
 
 tsline eu28 usca
-graph export "$report_output/nni-regions/NNIs-world/Europe vs. US_Canada.pdf", replace
+graph export "$output_dir/nni-regions/NNIs-world/Europe vs. US_Canada.pdf", replace
 
 tsline othafrica cn
-graph export "$report_output/nni-regions/NNIs-world/Subsaharian Africa vs. China.pdf", replace
+graph export "$output_dir/nni-regions/NNIs-world/Subsaharian Africa vs. China.pdf", replace
 
 tsline latinamer othasia
-graph export "$report_output/nni-regions/NNIs-world/Latin America vs. Other Asia.pdf", replace
+graph export "$output_dir/nni-regions/NNIs-world/Latin America vs. Other Asia.pdf", replace
 
 
 

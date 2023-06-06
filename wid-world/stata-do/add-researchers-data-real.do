@@ -12,18 +12,18 @@
 // -------------------------------------------------------------------------- //
 
 // France inequality 2017 (GGP2017)
-use "$wid_dir/Country-Updates/France/2022-ggp/france-ggp2017.dta", clear
+use "$updates/France/2022-ggp/france-ggp2017.dta", clear
 
 // World and World Regions 2018 (ChancelGethin2018 from World Inequality Report)
-// append using "$wid_dir/Country-Updates/World/2018/January/world-chancelgethin2018.dta"
+// append using "$updates/World/2018/January/world-chancelgethin2018.dta"
 // drop if inlist(iso,"QE","QE-MER")
 
 // Germany and subregions
-append using "$wid_dir/Country-Updates/Germany/2018/May/bartels2018.dta"
+append using "$updates/Germany/2018/May/bartels2018.dta"
 drop if iso == "DE"
 
 // Korea 2018 (Kim2018), only gdp and nni (rest is in current LCU)
-append using "$wid_dir/Country-Updates/Korea/2018_10/korea-kim2018-constant.dta"
+append using "$updates/Korea/2018_10/korea-kim2018-constant.dta"
 preserve 
 	keep if year<1950 & author == "kim2018"
 	tempfile kr
@@ -37,15 +37,15 @@ append using `kr'
 // -----------------------------------------------------------------------------
 
 // Europe (East & West) Countries and Aggregates
-append using "$wid_dir/Country-Updates/Europe/2022_10/Europe2022.dta"
+append using "$updates/Europe/2022_10/Europe2022.dta"
 
 // Latin America Aggregates and countries with regional averages
 drop if inlist(iso, "XL", "XL-MER")
-append using "$wid_dir/Country-Updates/Latin_America/2022/September/LatinAmercia2022.dta"
+append using "$updates/Latin_America/2022/September/LatinAmercia2022.dta"
 
 // // Gender - spllin992f
 // drop if widcode == "spllin992f" /*& p == "p0"*/ & iso == "FR"
-// append using "$wid_dir/Country-Updates/Gender/2021_Sept/gender2021.dta"
+// append using "$updates/Gender/2021_Sept/gender2021.dta"
 
 compress, nocoalesce 
 
@@ -63,8 +63,8 @@ drop if iso == "FR" & missing(source) & strpos(sixlet, "ptinc")
 drop if iso == "FR" & strpos(sixlet, "pllin")
 duplicates drop
 // drop if missing(source) & missing(method)
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Europe/2022_10/Europe2022-metadata.dta", update replace nogen
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Latin_America/2022/September/LatinAmercia2022-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/Europe/2022_10/Europe2022-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/Latin_America/2022/September/LatinAmercia2022-metadata.dta", update replace nogen
 drop if iso == "FR" & method == "" & inlist(sixlet, "scainc", "sdiinc", "tptinc")
 drop if iso == "FR" & method == "" & strpos(sixlet, "ptinc")
 drop if iso == "FR" & method == "" & strpos(sixlet, "pllin")

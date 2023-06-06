@@ -1,5 +1,5 @@
 // Import and convert to WID format
-import excel "$wid_dir/Country-Updates/UK/2017/August/UK_NI_1990-2014.xlsx", sheet("series") first clear
+import excel "$updates/UK/2017/August/UK_NI_1990-2014.xlsx", sheet("series") first clear
 renvars _all, lower
 destring year, replace
 levelsof year, local(years)
@@ -11,11 +11,11 @@ di "UK `type'..."
 foreach year in `years'{
 	qui{
 		if "`type'"=="fiinc"{
-		import excel "$wid_dir/Country-Updates/UK/2017/August/UK_FI_1990-2014.xlsx", ///
+		import excel "$updates/UK/2017/August/UK_FI_1990-2014.xlsx", ///
 		sheet("total, UK, `year'") first clear
 		}
 		if "`type'"=="ptinc"{
-		import excel "$wid_dir/Country-Updates/UK/2017/August/UK_NI_1990-2014.xlsx", ///
+		import excel "$updates/UK/2017/August/UK_NI_1990-2014.xlsx", ///
 		sheet("total, UK, `year'") first clear
 		}
 

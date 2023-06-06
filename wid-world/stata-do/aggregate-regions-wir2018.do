@@ -147,7 +147,7 @@ preserve
 	renvars value*, predrop(5)
 	rename region4 region
 	replace region = region + " (WIR 2018)"
-	export excel "$wid_dir/wid-regions-list.xlsx", sheet("WIR 2018", replace) firstrow(variables)
+	export excel "$input_data_dir/wid-regions-list.xlsx", sheet("WIR 2018", replace) firstrow(variables)
 restore
 
 // Calculate aggregates

@@ -1,5 +1,5 @@
 
-import excel "$wid_dir/Country-Updates/Sweden/2017/Sweden_WID.world_2.xlsx", clear
+import excel "updates/Sweden/2017/Sweden_WID.world_2.xlsx", clear
 
 // Clean
 renvars, map(strtoname(@[3]))

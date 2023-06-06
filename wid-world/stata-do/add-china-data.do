@@ -1,4 +1,4 @@
-use "$wid_dir/Country-Updates/China/2017/PYZ2017_WID_export.dta", clear
+use "$updates/China/2017/PYZ2017_WID_export.dta", clear
 
 rename alpha2 iso
 rename perc p

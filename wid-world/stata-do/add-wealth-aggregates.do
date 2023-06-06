@@ -10,10 +10,10 @@ keep if inlist(widcode, "mnweal999i", "mhweal999i", "mpweal999i", "mgweal999i", 
 drop p currency 
 reshape wide value, i(iso year) j(widcode) string
 
-merge 1:1 iso year using "$wid_dir/Country-Updates/Wealth/2022_September/wealth-aggregates.dta", nogen
+merge 1:1 iso year using "$updates/Wealth/2022_September/wealth-aggregates.dta", nogen
 
 // Netherlands
-merge 1:1 iso year using "$wid_dir/Country-Updates/Netherlands/2022_11/NL_WealthAggregates_WID_tomerge", update nogen
+merge 1:1 iso year using "$updates/Netherlands/2022_11/NL_WealthAggregates_WID_tomerge", update nogen
 
 foreach x in g h n p {
 	replace valuem`x'weal999i = `x'weal*valuemnninc999i if !missing(valuemnninc999i) & !missing(`x'weal)

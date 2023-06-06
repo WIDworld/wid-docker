@@ -36,7 +36,7 @@ tempfile mhweal
 save `mhweal' 
 
 // Calling wealth-gperc-all.dta
-use "$wid_dir/Country-Updates/Wealth/2022_May/wealth-gperc-all.dta", clear 
+use "$updates/Wealth/2022_May/wealth-gperc-all.dta", clear 
 order iso year p 
 //p s ts a n 
 
@@ -52,17 +52,17 @@ drop ahweal992i
 merge 1:1 iso year p using "$work_data/wealth-distributions-corrected.dta", update replace nogen
 
 // Adding Chinese wealth data
-merge 1:1 iso year p using "$wid_dir/Country-Updates/Asia/2022/September/cn-wealth.dta", update replace nogen 
+merge 1:1 iso year p using "$updates/Asia/2022/September/cn-wealth.dta", update replace nogen 
 
 // Adding Netherlands wealth data 
 // drop if iso == "NL" & year == 1993 // Netherlands sent data with only 1993 overlapping. If data update arrives check if this is needed 
-// merge 1:1 iso year p using "$wid_dir/Country-Updates/Netherlands/2022_11/nl-wealth", update replace nogen
+// merge 1:1 iso year p using "$updates/Netherlands/2022_11/nl-wealth", update replace nogen
 // replace bracket_average = a if iso == "NL" & missing(bracket_average)
 // replace threshold = t if iso == "NL" & missing(threshold)
 // drop t 
 
 // Adding Hong Kong wealth data
-merge 1:1 iso year p using "$wid_dir/Country-Updates/Asia/2022/September/hk-wealth.dta", update replace nogen
+merge 1:1 iso year p using "$updates/Asia/2022/September/hk-wealth.dta", update replace nogen
 
 *****************************
 *	 II. Computations		*
@@ -117,7 +117,7 @@ assert dup == 0
 drop dup 
 
 // Merge topshare wealth for NL prior 1995 - TEMPORARY
-merge 1:1 iso year p using "$wid_dir/Country-Updates/Netherlands/2022_12/NL-wealth-ts-rm.dta", update replace nogen
+merge 1:1 iso year p using "$updates/Netherlands/2022_12/NL-wealth-ts-rm.dta", update replace nogen
 
 // test
 // tw (line ts year if iso == "DE" & p == 90000) ///
@@ -194,7 +194,7 @@ append using `top'
 append using `bottom'
 
 // appending Polish 1923 data. Already in final format
-append using "$wid_dir/Country-Updates/Poland/2022_February/poland_hweal_1923.dta"
+append using "$updates/Poland/2022_February/poland_hweal_1923.dta"
 
 /// test
 /// tsline value if iso == "NL" & p == "p99p100" & widcode == "shweal992j", xlabel(1900(10)2020)

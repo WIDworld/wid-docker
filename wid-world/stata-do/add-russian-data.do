@@ -2,14 +2,14 @@
 // -------------------------------------- Fiscal income distributional series
 
 //----------------------------------------------------------------------------------------------------------------
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017FinalDistributionSeries/FinalSeriesCopula.xlsx", sheet("series") first case(l) clear
+import excel "$updates/Russia/2017/August/NPZ2017FinalDistributionSeries/FinalSeriesCopula.xlsx", sheet("series") first case(l) clear
 keep if component=="added up"
 destring year, replace
 levelsof year, local(years)
 
 foreach year in `years'{
 	qui{
-		import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017FinalDistributionSeries/FinalSeriesCopula.xlsx", ///
+		import excel "$updates/Russia/2017/August/NPZ2017FinalDistributionSeries/FinalSeriesCopula.xlsx", ///
 		sheet("yf, Russia, `year'") first clear
 
 		// Clean and extend
@@ -194,14 +194,14 @@ save "`fiincRussia'"
 // -------------------------------------- Pre-tax national income distributional series
 
 //----------------------------------------------------------------------------------------------------------------
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017FinalDistributionSeries/FinalSeriesCopula.xlsx", sheet("series") first case(l) clear
+import excel "$updates/Russia/2017/August/NPZ2017FinalDistributionSeries/FinalSeriesCopula.xlsx", sheet("series") first case(l) clear
 keep if component=="added up"
 destring year, replace
 levelsof year, local(years)
 
 foreach year in `years'{
 	qui{
-		import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017FinalDistributionSeries/FinalSeriesCopula.xlsx", ///
+		import excel "$updates/Russia/2017/August/NPZ2017FinalDistributionSeries/FinalSeriesCopula.xlsx", ///
 		sheet("Russia, `year'") first clear
 
 		// Clean and extend
@@ -384,13 +384,13 @@ save "`ptincRussia'"
 
 // -------------------------------------- Wealth distributional series
 //----------------------------------------------------------------------------------------------------------------
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017FinalDistributionSeries/WealthSeriesRussiaBenchmark.xlsx", sheet("series") first case(l) clear
+import excel "$updates/Russia/2017/August/NPZ2017FinalDistributionSeries/WealthSeriesRussiaBenchmark.xlsx", sheet("series") first case(l) clear
 destring year, replace
 levelsof year, local(years)
 
 foreach year in `years'{
 	qui{
-		import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017FinalDistributionSeries/WealthSeriesRussiaBenchmark.xlsx", ///
+		import excel "$updates/Russia/2017/August/NPZ2017FinalDistributionSeries/WealthSeriesRussiaBenchmark.xlsx", ///
 		sheet("wealth, Russia, `year'") first clear
 
 		// Clean and extend
@@ -578,7 +578,7 @@ save "`wealthRussia'"
 
 //----------------------------------------------------------------------------------------------------------------
 // Deflator
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017FinalDistributionSeries/RU_defl.xlsx", clear
+import excel "$updates/Russia/2017/August/NPZ2017FinalDistributionSeries/RU_defl.xlsx", clear
 keep if _n>2
 renvars A B / year value
 destring value, replace force
@@ -590,7 +590,7 @@ save "`deflru'"
 
 //----------------------------------------------------------------------------------------------------------------
 // Net personal wealth to national income (%)
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
+import excel "$updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
 sheet("A21") clear
 keep if _n>7
 renvars A B / year wwealh999i
@@ -604,7 +604,7 @@ save "`wwealh999i'"
 
 //----------------------------------------------------------------------------------------------------------------
 // Private wealth to national income (%)
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
+import excel "$updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
 sheet("A28b") clear
 keep if _n>7
 renvars A B / year wwealp999i
@@ -618,7 +618,7 @@ save "`wwealp999i'"
 
 //----------------------------------------------------------------------------------------------------------------
 // Public wealth to national income (%)
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
+import excel "$updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
 sheet("A29b") clear
 keep if _n>7
 renvars A B / year wwealg999i
@@ -640,7 +640,7 @@ foreach table in A1 A20 A28a{
 di "`table'..."
 qui{
 preserve
-	import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
+	import excel "$updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
 	sheet("`table'") clear
 
 	local number=B[2]
@@ -726,7 +726,7 @@ save "`A1_A20_A28a'"
 
 //----------------------------------------------------------------------------------------------------------------
 // Table A29a
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
+import excel "$updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
 	sheet("A29a") clear
 
 drop if _n<6
@@ -770,7 +770,7 @@ save "`A29a'"
 
 //----------------------------------------------------------------------------------------------------------------
 // Table A30a
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
+import excel "$updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
 	sheet("A30a") clear
 
 drop if _n<6
@@ -797,7 +797,7 @@ save "`A30a'"
 
 //----------------------------------------------------------------------------------------------------------------
 // Add populations
-import excel "$wid_dir/Country-Updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
+import excel "$updates/Russia/2017/August/NPZ2017NationalAccountsSeries/NPZ2017AppendixA.xlsx", ///
 sheet("DataPOP") clear
 renvars B C D / year npopul999i npopul992i
 keep year npopul999i npopul992i

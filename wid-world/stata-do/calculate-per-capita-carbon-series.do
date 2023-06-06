@@ -28,7 +28,7 @@ drop pop
 drop if missing(value)
 /*
 preserve
-	use "$wid_dir/Country-Updates/Carbon/macro/April_2021/WidCarbonMetadata2.dta", clear
+	use "$updates/Carbon/macro/April_2021/WidCarbonMetadata2.dta", clear
 	rename widcode fivelet
 	replace iso = "CG" if iso == "Cg"
 
@@ -43,7 +43,7 @@ generate fivelet = substr(widcode, 2, 5)
 merge m:1 iso fivelet using "`metacarbon'", nogen keep(match)
 drop fivelet
 */
-append using "$wid_dir/Country-Updates/Carbon/distribution/May_2021/carbon-distribution-2021.dta"
+append using "$updates/Carbon/distribution/May_2021/carbon-distribution-2021.dta"
 append using "$work_data/World-and-regional-aggregates-output.dta"
 
 *duplicates drop iso year p widcode, force

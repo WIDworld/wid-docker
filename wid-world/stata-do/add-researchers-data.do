@@ -5,115 +5,115 @@
 // -----------------------------------------------------------------------------
 etime, start
 // Ivory Coast 2017 (Czajka2017 + update 2020) - fiinc & ptinc series - YES 
-use "$wid_dir/Country-Updates/Ivory_Coast/2022/ivory_coast_2022.dta", clear
+use "$updates/Ivory_Coast/2022/ivory_coast_2022.dta", clear
 
 // UK 2021 (alvaredo2017&AST2021) - fiinc series
-append using "$wid_dir/Country-Updates/UK/2021_August/UK-fiinc-Aug2021.dta"
+append using "$updates/UK/2021_August/UK-fiinc-Aug2021.dta"
 
 // Brazil 2017 (Morgan2017) - fiinc series
-append using "$wid_dir/Country-Updates/Brazil/2018_January/BR_fiinc_Jan2018.dta"
+append using "$updates/Brazil/2018_January/BR_fiinc_Jan2018.dta"
 
 // UK 2017 (Alvaredo2017) - Wealth series
-append using "$wid_dir/Country-Updates/UK/2017/June/uk-wealth-alvaredo2017.dta"
+append using "$updates/UK/2017/June/uk-wealth-alvaredo2017.dta"
 
 // Russia 2017 (NPZ2017) - macro series & wealth and fiinc distribution series
-append using "$wid_dir/Country-Updates/Russia/2017/August/russia-npz2017.dta"
+append using "$updates/Russia/2017/August/russia-npz2017.dta"
 
 // Hungary 2017 (Mosberger2017) - few macro series & fiinc series
-append using "$wid_dir/Country-Updates/Hungary/2017/September/hungary-mosberger2017.dta"
+append using "$updates/Hungary/2017/September/hungary-mosberger2017.dta"
 
 // Poland 2017 (Novokmet2017) - fiinc series
-append using "$wid_dir/Country-Updates/Poland/2021_July/poland_fiinc_novokmet2017.dta"
+append using "$updates/Poland/2021_July/poland_fiinc_novokmet2017.dta"
 
 // Germany 2017 (Bartles2017 & update 2021) - fiinc series
-append using "$wid_dir/Country-Updates/Germany/2021_August/germany-fiinc-Aug2021.dta"
+append using "$updates/Germany/2021_August/germany-fiinc-Aug2021.dta"
 
 // Czech Republic 2018 (Novokmet2018) - fiinc series
-append using "$wid_dir/Country-Updates/Czech_Republic/2018/March/czech-novokmet2018.dta"
+append using "$updates/Czech_Republic/2018/March/czech-novokmet2018.dta"
 
 // Bulgaria 2018 (Novokmet2018) - fiinc series
-append using "$wid_dir/Country-Updates/Bulgaria/2018/March/bulgaria-novokmet2018.dta"
+append using "$updates/Bulgaria/2018/March/bulgaria-novokmet2018.dta"
 
 // Slovenia and Croatia 2018 (Novokmet 2018) - fiinc series
-append using "$wid_dir/Country-Updates/Croatia/2018/April/croatia_slovenia-novokmet2018.dta"
+append using "$updates/Croatia/2018/April/croatia_slovenia-novokmet2018.dta"
 
 // France 2018 (Goupille2018) - Gender series
-append using "$wid_dir/Country-Updates/France/2018/January/france-goupille2018-gender.dta"
+append using "$updates/France/2018/January/france-goupille2018-gender.dta"
 
 // Chile 2018 (Flores2018) - fiinc series
-append using "$wid_dir/Country-Updates/Chile/2018_October/chile-flores2018.dta"
+append using "$updates/Chile/2018_October/chile-flores2018.dta"
 
 // Korea 2018 (Kim2018) - wealth & fiinc series / gdp & nni cstt LCU imported in add-researchers-real.do 
-append using "$wid_dir/Country-Updates/Korea/2018_10/korea-kim2018-current.dta"
+append using "$updates/Korea/2018_10/korea-kim2018-current.dta"
 
 // India 2018 (Bharti2018) - wealth series
-append using "$wid_dir/Country-Updates/India/2018/November/india-bharti2018.dta"
+append using "$updates/India/2018/November/india-bharti2018.dta"
 
 // India 2019 - wealth-income ratios & macro series (Kumar2019)
-append using "$wid_dir/Country-Updates/India/2019_April/india-kumar2019.dta"
+append using "$updates/India/2019_April/india-kumar2019.dta"
 drop if iso == "IN" & author == "kumar2019" & inlist(widcode,"npopul999i") & year>1947
 
 // Belgium 2019 (Decoster2019) - fiinc series
-append using "$wid_dir/Country-Updates/Belgium/2019_02/belgium-decoster2019.dta"
+append using "$updates/Belgium/2019_02/belgium-decoster2019.dta"
 
 // Greece 2019 (chrissis2019&Kout2021) - fiinc series
-append using "$wid_dir/Country-Updates/Greece/2021_August/greece-fiinc-2021.dta"
+append using "$updates/Greece/2021_August/greece-fiinc-2021.dta"
 
 // Netherlands 2019 (Salverda2019) - fiinc series
-append using "$wid_dir/Country-Updates/Netherlands/2019_05/netherlands-salverda2019.dta"
+append using "$updates/Netherlands/2019_05/netherlands-salverda2019.dta"
 
 // Netherlands 2022 (Tousaint 2022) - nninc and inyixx series
 drop if widcode == "inyixx999i" & iso == "NL"
-append using "$wid_dir/Country-Updates/Netherlands/2022_11/netherlands-tousaint2022.dta"
+append using "$updates/Netherlands/2022_11/netherlands-tousaint2022.dta"
 
 // French Colonies[Cameroon, Algeria, Tunisia, Vietnam] (ACP2020) - fiinc series
-append using "$wid_dir/Country-Updates/French_Colonies/french_colonies.dta"
+append using "$updates/French_Colonies/french_colonies.dta"
 
 // US States (frank2021 & update 2021) - fiinc series
-append using "$wid_dir/Country-Updates/US_states/2021_April/us-states-Apr2021.dta"
+append using "$updates/US_states/2021_April/us-states-Apr2021.dta"
 
 // Norway - fiinc series
-append using "$wid_dir/Country-Updates/Norway/2021_August/Norway_fiscal2021.dta"
+append using "$updates/Norway/2021_August/Norway_fiscal2021.dta"
 
 // Middle East (AAP2017 § Moshrif 2020 & BM2021 & HM2022) - ptinc series - YES
-append using "$wid_dir/Country-Updates/Middle-East/2022/september/DINA_MiddleEast_Jul2022-data.dta"
+append using "$updates/Middle-East/2022/september/DINA_MiddleEast_Jul2022-data.dta"
 
 // Asia (MCY 2020 & BM 2021 & SZ 2022) - many macro variables + fiinc + ptinc series - YES
-append using "$wid_dir/Country-Updates/Asia/2022/September/Asia-full-2022.dta"
+append using "$updates/Asia/2022/September/Asia-full-2022.dta"
 
 // Russia (Neef 2022) -  ptinc series - YES
-append using "$wid_dir/Country-Updates/Russia/2022/Russia2022.dta"
+append using "$updates/Russia/2022/Russia2022.dta"
 
 // Africa (ccgm & Robillard 2022) - ptinc - YES
-append using "$wid_dir/Country-Updates/Africa/2022_09/africa-ptinc-Sept2022.dta" // data_quality added in metadata do.file
+append using "$updates/Africa/2022_09/africa-ptinc-Sept2022.dta" // data_quality added in metadata do.file
 drop if iso == "CI" & author == "ccgm2019&robi2020"
 drop if iso == "EG" & author == "ccgm2019&robi2020"
 
 // India (Chancel 2020) - 
-append using "$wid_dir/Country-Updates/India/2020_10/India_all_2020.dta"
+append using "$updates/India/2020_10/India_all_2020.dta"
 drop if iso == "IN" & author == "chancel2018" & inlist(widcode, "anninc992i", "mnninc999i")
 drop if iso == "IN" & author == "kumar2019"   & inlist(widcode, "npopul999i") & year>1947
 
 // Australia, New Zealand & Canada (Matt 2022) - ptinc & fiinc series
-append using "$wid_dir/Country-Updates/North_America/2022_10/AUCANZ_all_2022.dta"
+append using "$updates/North_America/2022_10/AUCANZ_all_2022.dta"
 
 // US (PSZ + BSZ 2022) - YES 
-append using "$wid_dir/Country-Updates/US/2022/January/output/US_full_2022sept.dta"
+append using "$updates/US/2022/January/output/US_full_2022sept.dta"
 
 // South Africa 2020 (ccg2020) - wealth distribution series
-append using "$wid_dir/Country-Updates/South_Africa/2020/April/south-africa-wealth-Apr2020.dta"
+append using "$updates/South_Africa/2020/April/south-africa-wealth-Apr2020.dta"
 
 // Hong Kong 2021 (PY2021) - ptinc series
-append using "$wid_dir/Country-Updates/Hong Kong/HongKong_ptinc_2021.dta"
+append using "$updates/Hong Kong/HongKong_ptinc_2021.dta"
 
 // Georgia 2021 (Neef & BMN 2021) - ptinc series
-append using "$wid_dir/Country-Updates/Georgia/2021_08/dina_georgia_8sep2021.dta"
+append using "$updates/Georgia/2021_08/dina_georgia_8sep2021.dta"
 
 // Wealth Aggregates (Bauluz & Brassac 2020 + update 2021 for all countries) - wealth macro series 
-append using "$wid_dir/Country-Updates/Wealth/2021_July/macro-wealth-Jul2021.dta"
+append using "$updates/Wealth/2021_July/macro-wealth-Jul2021.dta"
 
 // Post-tax series (Durrer, Fisher-Post, Gethin 2023) // Awaited better data in the fall 2023
-append using "$wid_dir/Country-Updates/posttax/02_2023/posttax-feb2023.dta"
+append using "$updates/posttax/02_2023/posttax-feb2023.dta"
 
 compress, nocoalesce 
 
@@ -133,13 +133,13 @@ drop if sixlet=="npopul" & strpos(source,"chancel")>0
 duplicates drop iso sixlet, force
 
 order iso sixlet source method
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Asia/2022/September/Asia-full-2022-metadata.dta", update replace nogen
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Middle-East/2022/september/DINA_MiddleEast_Jul2022-metadata.dta", update replace nogen
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Africa/2022_09/africa-ptinc-Sept2022-metadata.dta", update replace nogen
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/North_America/2021_11/AUCANZ_all_2021-metadata.dta", update replace nogen
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/US/2022/January/output/US_full_2022-metadata.dta", update replace nogen
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/Wealth/2021_July/macro-wealth-Jul2021-metadata.dta", update replace nogen
-merge 1:1 iso sixlet using "$wid_dir/Country-Updates/posttax/02_2023/posttax-feb2023-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/Asia/2022/September/Asia-full-2022-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/Middle-East/2022/september/DINA_MiddleEast_Jul2022-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/Africa/2022_09/africa-ptinc-Sept2022-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/North_America/2021_11/AUCANZ_all_2021-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/US/2022/January/output/US_full_2022-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/Wealth/2021_July/macro-wealth-Jul2021-metadata.dta", update replace nogen
+merge 1:1 iso sixlet using "$updates/posttax/02_2023/posttax-feb2023-metadata.dta", update replace nogen
 
 duplicates drop
 

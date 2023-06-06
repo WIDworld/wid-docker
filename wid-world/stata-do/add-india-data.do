@@ -1,10 +1,10 @@
 // Import inequality data
-use "$wid_dir/Country-Updates/India/2017/August/India_benchmark_19222014_current.dta", clear
+use "$updates/India/2017/August/India_benchmark_19222014_current.dta", clear
 levelsof year, local(years)
 
 foreach year in `years'{
 		qui{
-		use "$wid_dir/Country-Updates/India/2017/August/India_benchmark_19222014_current.dta", clear
+		use "$updates/India/2017/August/India_benchmark_19222014_current.dta", clear
 		keep if year==`year'
 		count if !mi(p)
 		if r(N)>0{
@@ -195,7 +195,7 @@ append using "`indiafiinc'"
 
 // Add macro data
 preserve
-	use "$wid_dir/Country-Updates/India/2017/August/India_benchmark_19222014_current.dta", clear
+	use "$updates/India/2017/August/India_benchmark_19222014_current.dta", clear
 	keep year npopul992i anninc992i mnninc999i
 	duplicates drop
 	

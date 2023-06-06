@@ -5,7 +5,7 @@
 clear
 foreach country in AUS FRA GER ITA JAP UK USA {
 	preserve
-		import excel "$wid_dir/Country-Updates/WID_updates/2019-08 Capital shares Bauluz/CapitalSharesWID_v3.xlsx", sheet("`country'") clear
+		import excel "$updates/WID_updates/2019-08 Capital shares Bauluz/CapitalSharesWID_v3.xlsx", sheet("`country'") clear
 		keep if _n>4
 		drop L
 		dropmiss, force
@@ -54,7 +54,7 @@ save "$work_data/wid-luis-data.dta", replace
 // -------------------------------------------------------------------------- //
 
 /*
-use "$wid_dir/Country-Updates/National_Accounts/Fisher_Post_2020/factor-shares-jan2020.dta", clear
+use "$updates/National_Accounts/Fisher_Post_2020/factor-shares-jan2020.dta", clear
 
 // Add net foreign labor income to get full compensation of employees of the household sector
 replace ce = ce + nfi_L

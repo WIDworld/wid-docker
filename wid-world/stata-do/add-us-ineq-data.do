@@ -1,6 +1,6 @@
 
 // Open pre-cleaned new data from folder
-use "$wid_dir/Country-Updates/US/2017/September/PSZ2017-AppendixII.dta", clear
+use "$updates/US/2017/September/PSZ2017-AppendixII.dta", clear
 gen oldobs=0
 
 tempfile usineq

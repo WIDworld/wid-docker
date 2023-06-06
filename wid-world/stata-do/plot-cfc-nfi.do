@@ -90,9 +90,9 @@ graph twoway (connected y year, symbol(none) color("8 48 107")), ///
 restore
 
 graph combine europe america asia africa, title("Consumption of fixed capital") iscale(0.65) ycommon
-capture mkdir "$report_output/cfc-nfi"
-graph export "$report_output/cfc-nfi/cfc.pdf", replace
-graph export "$report_output/cfc-nfi/cfc.png", width(2000) replace
+capture mkdir "$output_dir/cfc-nfi"
+graph export "$output_dir/cfc-nfi/cfc.pdf", replace
+graph export "$output_dir/cfc-nfi/cfc.png", width(2000) replace
 graph close
 
 // Plot NFI in Norway
@@ -109,6 +109,6 @@ graph twoway (connected y year, symbol(none) color("8 48 107")) if (iso == "BR")
 	subtitle("Brazil") name(nfi_brazil, replace)
 
 graph combine nfi_norway nfi_brazil, title("Net foreign income") iscale(1) xsize(6) ysize(3) ycommon
-graph export "$report_output/cfc-nfi/nfi.pdf", replace
-graph export "$report_output/cfc-nfi/nfi.png", width(2000) replace
+graph export "$output_dir/cfc-nfi/nfi.pdf", replace
+graph export "$output_dir/cfc-nfi/nfi.png", width(2000) replace
 graph close

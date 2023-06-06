@@ -4,9 +4,21 @@
 
 clear all
 
-// Directory of Dropbox saved data
-global wid_dir "/W2ID"
 global project_dir "/wid-world"
+
+// Directory of Dropbox-saved country data
+global updates 		"/W2ID-Country-Updates"
+
+global forbes_data 	"$updates/Forbes/2022"
+global historical 	"$updates/Historical_series/2022_December"
+
+// Directory of the data availability quality index
+global quality_file "$updates/AvailableData-World/Transparency_index_2022_update.xlsx"
+
+
+// Directory with the output
+global output_dir "$project_dir/output"
+cap mkdir "$output_dir"
 
 // Directory of the DO files
 global do_dir "$project_dir/stata-do"
@@ -18,11 +30,11 @@ sysdir set PERSONAL "$ado_dir" // Add to the ADO path
 // Location of R executable
 global Rpath "/usr/bin/R"
 
-// Location of the codes dictionnary file
-global codes_dictionary "$wid_dir/Methodology/Codes_Dictionnary_WID.xlsx"
-
 // External data sources
 global input_data_dir "$project_dir/data-input"
+
+// Location of the codes dictionnary file
+global codes_dictionary "$input_data_dir/Codes_Dictionnary_WID.xlsx"
 
 global wtid_data         "$input_data_dir/wtid-data"
 global un_data           "$input_data_dir/un-data"
@@ -42,8 +54,6 @@ global france_data       "$input_data_dir/france-data"
 global us_data           "$input_data_dir/us-data"
 global us_states_data    "$input_data_dir/us-states-data"
 global china_pyz_data    "$input_data_dir/china-pyz-data"
-global forbes_data 		 "$wid_dir/Country-Updates/Forbes/2022"
-global historical 		 "$wid_dir/Country-Updates/Historical_series/2022_December"
 
 // Files to helps matching countries & currencies between the different sources
 global country_codes  "$input_data_dir/country-codes"
@@ -51,27 +61,13 @@ global currency_codes "$input_data_dir/currency-codes"
 
 // Directory with intermediairy data files (not synced to GitHub)
 global work_data "$project_dir/work-data"
-capture cd "$project_dir/work-data"
-if _rc!=0 {
-	shell mkdir "$project_dir/work-data"
-}
+cap mkdir "$work_data"
 
-// Directory with reports from the programs
-global report_output "$wid_dir/WIDGraphsTables"
 
-// Directory with the output
-global output_dir "$wid_dir/WIDData"
 
 // Old version directory to compare with udpated database
-global olddate 21_May_2019_09_27_03
-global oldoutput_dir "$output_dir/$olddate"
-
-// Directory with the summary table
-global sumtable_dir "$wid_dir/Country-Updates/AvailableData"
-
-// Directory of the data availability quality index
-*global quality_file "$wid_dir/Country-Updates/AvailableData-World/inequality-data-available-final.xlsx"
-global quality_file "$wid_dir/Country-Updates/AvailableData-World/Transparency_index_2022_update.xlsx"
+// global olddate 21_May_2019_09_27_03
+// global oldoutput_dir "$output_dir/$olddate"
 
 // Store date and time in a global macro to timestamp the output
 local c_date = c(current_date)

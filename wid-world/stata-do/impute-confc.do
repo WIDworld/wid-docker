@@ -77,7 +77,7 @@ foreach id of local id_list {
 
 // Graph GDP series
 if ($plot_imputation_cfc) {
-	capture mkdir "$report_output/impute-cfc"
+	capture mkdir "$output_dir/impute-cfc"
 	quietly levelsof iso if (log_gdp < .), local(iso_list)
 	foreach iso of local iso_list {
 		graph twoway connected log_gdp_hp log_gdp year if (iso == "`iso'"), ///
@@ -85,7 +85,7 @@ if ($plot_imputation_cfc) {
 			xscale(range(1810 $pastyear)) xlabel(1810(10)$pastyear, angle(vertical)) ///
 			xtitle("Year") ytitle("log(real GDP)") symbol(none none) ///
 			legend(order(1 "Filtered GDP" 2 "Raw GDP"))
-		graph export "$report_output/impute-cfc/gdp-`iso'.pdf", replace
+		graph export "$output_dir/impute-cfc/gdp-`iso'.pdf", replace
 		graph close
 	}
 }
@@ -149,7 +149,7 @@ if ($plot_imputation_cfc) {
 		ytitle("Correlation coefficient") xtitle("Number of lags") ///
 		plotlabel("ε" "η") title("Autocorrelation of residuals") ///
 		subtitle("Imputation of CFC") yscale(range(0 1)) ylabel(0(0.2)1)
-	graph export "$report_output/impute-cfc/autocorrelation-cfc.pdf", replace
+	graph export "$output_dir/impute-cfc/autocorrelation-cfc.pdf", replace
 	graph close
 	drop eta
 }
@@ -228,7 +228,7 @@ if ($plot_imputation_cfc) {
 			xscale(range(1810 $pastyear)) xlabel(1810(10)$pastyear, angle(vertical)) ///
 			legend(order(2 "Consumption of fixed capital" 1 "80% prediction interval")) ///
 			title("Imputation of the consumption of fixed capital") subtitle("`cc'")
-		graph export "$report_output/impute-cfc/cfc-imputation-`cc'.pdf", replace
+		graph export "$output_dir/impute-cfc/cfc-imputation-`cc'.pdf", replace
 		graph close
 	}
 }

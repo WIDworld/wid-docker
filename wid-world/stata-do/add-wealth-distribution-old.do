@@ -3,7 +3,7 @@
 // "wealth-distributions-all-c.dta" & "dist-wealth-Aug2021.dta" are the same dataset, the first is wide and the second is long format
 
 // I. HH wealth aggregates
-use if widcode == "mhweal999i" using "$wid_dir/Country-Updates/Wealth/2021_July/dist-wealth-Aug2021.dta", clear
+use if widcode == "mhweal999i" using "$updates/Wealth/2021_July/dist-wealth-Aug2021.dta", clear
 rename value value_c
 
 tempfile mhweal_all
@@ -19,7 +19,7 @@ merge 1:m iso year using `mhweal_all', nogen
 // levelsof iso if !missing(value), local(x)
 // foreach l in `x' {
 // 	tw (line value year, sort) (line value_c year, sort) if iso == "`l'"
-// 	graph export "~/Dropbox/WIL/W2ID/Country-Updates/Wealth/2021_July/graphs/mhweal_`l'.png", replace	
+// 	graph export "$updates/Wealth/2021_July/graphs/mhweal_`l'.png", replace	
 // }
 
 // Countries for which we replace completely the macro wealth
@@ -135,7 +135,7 @@ save `original'
 // III. Import New Series 
 * (!) Name of the imported dta might be different but it is the same data
 use year p iso bracket_average bracket_share top_share bottom_share bottom_average top_average threshold ///
-using "$wid_dir/Country-Updates/Wealth/2021_July/wealth-distributions-all-c.dta", clear
+using "$updates/Wealth/2021_July/wealth-distributions-all-c.dta", clear
 
 renvars bracket_average bracket_share threshold top_share top_average bottom_share bottom_average \ a s t ts ta bs ba
 renvars a s t ts ta bs ba, pref("upd_")
@@ -145,11 +145,11 @@ merge 1:m iso year p using `original', nogen
 // levelsof iso if !missing(wid_a), local(x)
 // foreach l in `x' {
 // 	tw (line upd_ta year, sort) (line wid_ta year, sort) if iso == "`l'" & p == 90000
-// 	graph export "~/Dropbox/WIL/W2ID/Country-Updates/Wealth/2021_July/graphs/ta_`l'.png", replace	
+// 	graph export "$updates/Wealth/2021_July/graphs/ta_`l'.png", replace	
 // }
 // foreach l in `x' {
 // 	tw (line upd_ts year, sort) (line wid_ts year, sort) if iso == "`l'" & p == 90000
-// 	graph export "~/Dropbox/WIL/W2ID/Country-Updates/Wealth/2021_July/graphs/ts_`l'.png", replace	
+// 	graph export "$udates/Wealth/2021_July/graphs/ts_`l'.png", replace	
 // }
 
 
@@ -195,7 +195,7 @@ renvars `r(varlist)', pred(4)
 tempfile all
 save `all'
 /*
-use year iso average using "$wid_dir/Country-Updates/Wealth/2021_July/wealth-distributions-all-c.dta", clear
+use year iso average using "$updates/Wealth/2021_July/wealth-distributions-all-c.dta", clear
 duplicates drop
 rename average value
 generate widcode = "ahweal992j"
@@ -259,7 +259,7 @@ append using `bottom'
 append using `aggregates'
 *append using `average'
 
-append using "$wid_dir/Country-Updates/Poland/2022_February/poland_hweal_1923.dta"
+append using "$updates/Poland/2022_February/poland_hweal_1923.dta"
 
 duplicates drop iso year p widcode, force // p0p1  p99.999p100 for a & s
 
@@ -425,7 +425,7 @@ save "$work_data/add-wealth-distribution-metadata.dta", replace
 //
 /*
 // Graph to compare previous series on WID with the 2021 update
-cd "~/Dropbox/W2ID/Country-Updates/Wealth/2021_July/graphs"
+cd "$updates/Wealth/2021_July/graphs"
 levelsof iso if oldobs == 1, local(x)
 foreach l in `x' {
 	tw (line shweal992j year if oldobs == 0, sort) ///

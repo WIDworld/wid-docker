@@ -190,7 +190,8 @@ tempfile sumtable
 save "`sumtable'"
 
 ********************************************************* AJOUT DES NIVEAUX DE VARIABLES *************************************************************
-import delimited using "$wid_dir\Population\WorldNationalAccounts\stata-programs\Results\variable-tree.csv", delim(";") clear
+import delimited using "$input_data_dir/variable-tree.csv", delim(";") clear
+// what is this ?? ^
 
 *** On doit concatener les niveaux; on peut supprimons les duplicates qui sont a la fois "niveau" et "varcode"
 gen varcode=substr(path,-6,6)
@@ -396,7 +397,7 @@ local c_date= c(current_date)
 local date_string = subinstr("`c_date'", " " , "", .)
 
 *** Sauvegarde
-export excel "$sumtable_dir/WID_SummaryTable_`date_string'.xlsx", replace firstrow(varl) sheet("SummaryTable")
+export excel "$output_dir/WID_SummaryTable_`date_string'.xlsx", replace firstrow(varl) sheet("SummaryTable")
 
 *********************************************************  README ************************************************************************************
 clear all
@@ -418,7 +419,7 @@ replace ReadMe="- Method used for computation and Source indicate how a country-
 
 local c_date= c(current_date)
 local date_string = subinstr("`c_date'", " " , "", .)
-export excel "$sumtable_dir/WID_SummaryTable_`date_string'.xlsx", sheetmodify sheet("ReadMe")
+export excel "$output_dir/WID_SummaryTable_`date_string'.xlsx", sheetmodify sheet("ReadMe")
 
 *erase "$work_data/sumtable.dta"
 

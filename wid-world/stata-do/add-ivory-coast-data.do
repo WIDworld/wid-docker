@@ -1,7 +1,7 @@
 // Import and convert to WID format
 foreach year in 1988 1993 1998 2002 2008 2014{
 	qui{
-		import excel "$wid_dir/Country-Updates/Ivory Coast/2017_July/final_results_CI_LEO.xlsx", ///
+		import excel "$updates/Ivory Coast/2017_July/final_results_CI_LEO.xlsx", ///
 		sheet("CI, `year'") first clear
 
 		// Clean and extend
