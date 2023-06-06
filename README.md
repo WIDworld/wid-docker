@@ -9,7 +9,7 @@ This repository is generated from `AEADataEditor/stata-project-with-docker`.
 
 ## TODO
 
-- [ ] Add run-shell, run-main scripts?
+- [ ] Add screen capability for long `main.do` run?
 
 
 ## Requirements
@@ -81,13 +81,13 @@ By default, the build process is documented in [`build.sh`](build.sh) and works 
 
 #### Set initial configurations
 
-You can edit the contents of the [`config.txt`](init.config.txt):
+You can edit the contents of the [`init.config.txt`](init.config.txt):
 
 ```{bash}
 MYHUBID=mcamacho10                    # Docker username 
 MYIMG=wid-world                       # Image name
 STATALIC=/usr/local/Stata/stata.lic   # Local filepath to Stata license!
-DROPBOX=${HOME}/Dropbox/W2ID          # Local filepath to data Dropbox!
+DROPBOX=${HOME}/Dropbox/W2ID          # Local filepath to W2ID Dropbox data!
 ```
 
 Where 

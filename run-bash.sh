@@ -24,7 +24,7 @@ fi
 
 # Run container with bash
 time docker run $DOCKEROPTS \
-  -v ${DROPBOX}:/W2ID \
+  -v ${DROPBOX}/Country-Updates:/W2ID-Country-Updates \
   -v $(pwd)/wid-world:/wid-world \
   --platform linux/arm64/v8 \
   $DOCKERIMG:$TAG \
