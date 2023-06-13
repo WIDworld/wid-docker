@@ -27,8 +27,7 @@ time docker run $DOCKEROPTS \
   -v ${DROPBOX}/Country-Updates:/W2ID-Country-Updates \
   -v $(pwd)/wid-world:/wid-world \
   --platform linux/arm64/v8 \
-  $DOCKERIMG:$TAG \
-  /bin/bash
+  $DOCKERIMG:$TAG /bin/bash
 
 
 

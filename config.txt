@@ -1,0 +1,5 @@
+MYHUBID=mcamacho10				
+MYIMG=wid-world	
+TAG=2023-06-06
+STATALIC=/usr/local/Stata/stata.lic
+DROPBOX=${HOME}/Dropbox/W2ID
