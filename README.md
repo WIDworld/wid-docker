@@ -9,6 +9,7 @@ This repository is generated from `AEADataEditor/stata-project-with-docker`.
 
 ## TODO
 
+- [ ] URGENT: Check/add memory limits (`main` process getting Killed.)
 - [ ] Add screen capability for long `main.do` run?
 
 
