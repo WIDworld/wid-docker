@@ -10,16 +10,16 @@ source $configfile
 echo "================================"
 echo "Running docker:"
 
-# When we are on Github Actions
+
+DOCKERIMG=$(echo $MYHUBID/$MYIMG | tr [A-Z] [a-z])
 if [[ $CI ]] 
    then
-      echo "In CI Github Actions"
+      echo "In CI Github Actions..."
       DOCKEROPTS="--rm"
-      DOCKERIMG=$(echo $GITHUB_REPOSITORY | tr [A-Z] [a-z])
       TAG=latest
    else
       DOCKEROPTS="-dit"
-      DOCKERIMG=$(echo $MYHUBID/$MYIMG | tr [A-Z] [a-z])
+      
 fi
 
 # Run container 
