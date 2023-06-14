@@ -5,7 +5,7 @@
 
 These short instructions should get you up and running fairly quickly with the `wid-world` codebase. It is fully self-contained, though it requires the Dropbox `W2ID` data directories to be locally available as we will mount these directly into the image.
 
-This repository is generated from `AEADataEditor/stata-project-with-docker`. 
+This repository is generated from `AEADataEditor/stata-project-with-docker` and `WIDworld/wid-world`. 
 
 ## TODO
 
