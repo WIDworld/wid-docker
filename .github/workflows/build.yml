@@ -4,20 +4,20 @@ on:
   push:
     branches:
       - 'main'
+      - 'dev-mc'
     paths:
       - 'Dockerfile'
       - 'build.sh'
       - 'build.yml'
+      - 'install.do'
+      - 'setup.do'
   workflow_dispatch:
 
 jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-      # This needs to be adapted to your own PROJECT!!
-      # It may not correspond to your Docker login
-      # DOCKER_PROJECT: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKER_PROJECT: wid-docker
+      DOCKER_PROJECT: ${{ secrets.DOCKERHUB_USERNAME }}/wid-world
     steps:
       -
         name: Checkout
@@ -51,6 +51,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.DOCKER_PROJECT }}/${{ steps.repo_slug.outputs.result }}:latest
+          tags: ${{ env.DOCKER_PROJECT }}:latest
           secret-files: |
              "statalic=./stata.lic"

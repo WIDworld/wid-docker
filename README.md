@@ -47,7 +47,7 @@ However, this can be time and memory intensive! I recommend downloading a pre-bu
 More simply, you can download pre-built image from Docker Hub!
 
 1. [ ] Find the appropriate image from [Docker Hub](https://hub.docker.com/repository/docker/mcamacho10/wid-world/general).
-2. [ ] Run `docker pull mcamacho10/wid-world:tagname`
+2. [ ] Run `docker pull mcamacho10/wid-world:<TAG>`
 
 
 ## Details
@@ -125,10 +125,10 @@ The script [`run.sh`](run.sh) will pick up the configuration information in `con
 
 Once built, you can navigate into your container and explore your new virtual environment using `docker exec -it run <CONTAINER_NAME> bash`.
 
+Alternatively, you can run `./run.sh main.do` (or provide a different Stata do-file as argument which will attempt to run said Stata file).
+
 
 ## Cloud functionality
-
-Following sections are still @TODO.
 
 Once you have ascertained that everything is working fine, you can let the cloud run the Docker image in the future. Note that this assumes that all data can be either downloaded on the fly, or is available in the `wid-docker` directory within Github (only recommended for quite small data). We will need to set-up remote Dropbox access (or AWS S3 type storage) for this. 
 
@@ -144,7 +144,7 @@ To run the image,  the license needs to be available to the Github Action as `ST
  gh secret set STATA_LIC_BASE64 -b"$(cat stata.lic | base64)" -v all -o WIDWorld
 ```
 
-where `stata.lic` is your Stata license file, and `YOURORG` is your organization (can be dropped if running in your personal account).
+where `stata.lic` is your Stata license file, and the `-v` and `-o` options corresponding to your organization (which can be dropped if running in your personal account).
 
 
 ### Publish the image 
@@ -176,34 +176,20 @@ on:
   push:
     branches:
       - 'main'
+      - 'dev-mc'
   workflow_dispatch:
 ```
 
-which instructs the Github Action (run Stata on the code) to be triggered either by a commit to the `main` branch, or to be manually triggered, by going to the "Actions" tab in the Github Repository. The latter is very helpful for debugging!
+which instructs the Github Action (run Stata on the code) to be triggered either by a commit to the `main` branch (or the `dev-mc` branch), or to be manually triggered, by going to the "Actions" [tab](https://github.com/mkmacho/wid-docker/actions) in the Github Repository. The latter is very helpful for debugging!
 
-### Results
+To test whether Stata code can be run and specifically whether our code can be run, we can test run the `setup.do` code within the `run-test.sh` script. This can be found in the [`.github/workflows/compute.yml`](.github/workflows/compute.yml) section.
 
-If you only run the code for testing purposes, you may simply be interested in whether or not the tests run successfully, and not in the outputs per se. However, if you wish to use this to actually run your code and retain meaningful results, then the last part of the [`.github/workflows/compute.yml`](.github/workflows/compute.yml) is relevant:
 
-```
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.8.0
-        with:
-           github_token: ${{ secrets.GITHUB_TOKEN }}
-           publish_dir: .
-           publish_branch: results 
-           keep_files: true
-```
-In this case, once the code has run, the entire repository is pushed back to the "[results](https://github.com/AEADataEditor/stata-project-with-docker/tree/results)" branch. Alternatives consist in building and displaying a web page with results (in which case you might want to use the standard `gh-pages` branch), or actually compiling a LaTeX paper with all the results. 
-
-If you are not interested in the outcomes, then simply deleting those lines is sufficient.
-
-If you want to be really fancy (we are), then you show a badge showing the latest result of the `compute` run (which in our case, demonstrates that this project is reproducible!): [![Compute analysis](https://github.com/AEADataEditor/stata-project-with-docker/actions/workflows/compute.yml/badge.svg)](https://github.com/AEADataEditor/stata-project-with-docker/actions/workflows/compute.yml). 
+And if you want to be really fancy (we are), then you show a badge showing the latest result of the `compute` run (which in our case, demonstrates that this project is reproducible!): [![Compute analysis](https://github.com/mkmacho/wid-docker/actions/workflows/compute.yml/badge.svg)](https://github.com/mkmacho/wid-docker/actions/workflows/compute.yml). 
 
 ## Going the extra step
 
 If we can run the Docker image in the cloud, can we also create the Docker image in the cloud? The answer, of course, is yes. 
-
 
 ### Configurating Docker builds in the cloud
 
@@ -214,12 +200,17 @@ on:
   push:
     branches:
       - 'main'
+      - 'dev-mc'
     paths:
       - 'Dockerfile'
+      - 'build.sh'
+      - 'build.yml'
+      - 'install.do'
+      - 'setup.do'
   workflow_dispatch: 
 ```
 
-Here, only changes to the `Dockerfile` trigger a rebuild. While that may seem reasonable, we might also want to include `setup.do`, or other files that affect the Docker image. However, we can also manually trigger the rebuild in the "Actions" tab.
+Here, changes to the `Dockerfile` as well as a few other files trigger a rebuild. We can also manually trigger the rebuild in the "Actions" tab.
 
 ### Additional secrets
 
@@ -235,19 +226,14 @@ See [the Docker Hub documentation](https://docs.docker.com/docker-hub/access-tok
 ### Running it
 
 The [`.github/workflows/build.yml`](.github/workflows/build.yml) workflow will run through all the necessary steps to publish an image. Note that there's a slight difference in what it does: it will always create a "latest" tag, not a date- or release-specific tag. However, you can always associate a specific tag with the latest version manually. And because we are really fancy, we also have a badge for that: 
-[![Build docker image](https://github.com/AEADataEditor/stata-project-with-docker/actions/workflows/build.yml/badge.svg)](https://github.com/AEADataEditor/stata-project-with-docker/actions/workflows/build.yml).
+[![Build docker image](https://github.com/mkmacho/wid-docker/actions/workflows/build.yml/badge.svg)](https://github.com/mkmacho/wid-docker/actions/workflows/build.yml).
 
-### Not running it
-
-If you do not wish to build in the cloud, simply deleting [`.github/workflows/build.yml`](.github/workflows/build.yml) will disable that functionality.
 
 ## Other options
 
 We have described how to do this in a fairly general way. However, other methods to accomplish the same goal exist. Interested parties should check out the [ledwindra](https://github.com/ledwindra/continuous-integration-stata) and [labordynamicsinstitute](https://github.com/labordynamicsinstitute/continuous-integration-stata) versions of a pre-configured "Github Action" that does not require the license file, but instead requires the license information (several more secrets to configure). If "continuous integration" is not a concern but a cloud-based Stata+Docker setup is of interest, both [CodeOcean](https://codeocean.com) and (soon) [WholeTale](https://wholetale.org) offer such functionality.
 
-## Conclusion
 
-The ability to conduct "continuous integration" in the cloud with Stata is a powerful tool to ensure that the project is reproducible at any time, and to learn early on when reproducibility is broken. For small projects, this template repository and tutorial is sufficient to get you started. For more complex projects, running it locally based on this template will also ensure reproducibility. 
 
 
 
