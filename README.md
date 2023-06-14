@@ -11,6 +11,7 @@ This repository is generated from `AEADataEditor/stata-project-with-docker`.
 
 - [ ] URGENT: Check/add memory limits (`main` process getting Killed.)
 - [ ] Add screen capability for long `main.do` run?
+- [ ] Move gh actions into `build.sh` script?
 
 
 ## Requirements

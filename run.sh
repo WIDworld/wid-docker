@@ -17,7 +17,7 @@ if [[ $CI ]]
       echo "In CI Github Actions..."
       DOCKEROPTS="--rm"
    else
-      DOCKEROPTS="-dit"
+      DOCKEROPTS="-dit -ls"
       
 fi
 
@@ -41,8 +41,13 @@ if [ $# -eq 0 ]
         $DOCKERIMG:$TAG -bq $1
 
       # print and check logfile
-      logfile=${1%*.do}.log
+      basefile=$(basename $1)
+      logfile="wid-world/${basefile%*.do}.log"
+      
       EXIT_CODE=0
+      # Will likely not finish, but continue in background
+      sleep 5
+
       if [[ -f $logfile ]]
       then
          echo "===== $logfile ====="
