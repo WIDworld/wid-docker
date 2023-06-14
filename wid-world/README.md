@@ -14,3 +14,4 @@ Raw data files to World Inequality Database formatted output, ready to be upload
 	- Using work-data files if exist?
 - [ ] Problem with create-flag-variables.do
 	- Problem with reshape long to wide !
+- [ ] Clean up `data-input`
