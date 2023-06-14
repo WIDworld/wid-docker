@@ -8,7 +8,6 @@ on:
       - 'Dockerfile'
       - 'build.sh'
       - 'build.yml'
-      - 'setup.do'
   workflow_dispatch:
 
 jobs:
@@ -18,7 +17,7 @@ jobs:
       # This needs to be adapted to your own PROJECT!!
       # It may not correspond to your Docker login
       # DOCKER_PROJECT: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKER_PROJECT: aeadataeditor
+      DOCKER_PROJECT: wid-docker
     steps:
       -
         name: Checkout

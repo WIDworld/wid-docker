@@ -27,14 +27,14 @@ jobs:
           script: return '${{ github.repository }}'.toLowerCase()
       # Compute the main result, re-using the run.sh script
       -  name: Compute
-         run: "bash -x ./run.sh ./stata.lic"
+         run: "bash -x ./run-bash.sh ./stata.lic"
       # send it to the results branch
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.8.0
-        with:
-           github_token: ${{ secrets.GITHUB_TOKEN }}
-           publish_dir: .
-           user_name: 'Github Action Bot'
-           user_email: 'lars.vilhuber@cornell.edu'
-           publish_branch: results 
-           keep_files: true
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3.8.0
+      #   with:
+      #      github_token: ${{ secrets.GITHUB_TOKEN }}
+      #      publish_dir: .
+      #      user_name: 'Github Action Bot'
+      #      user_email: 'lars.vilhuber@cornell.edu'
+      #      publish_branch: results 
+      #      keep_files: true
