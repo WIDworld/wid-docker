@@ -28,4 +28,4 @@ jobs:
           script: return '${{ github.repository }}'.toLowerCase()
       # Test run Stata file setup.do
       -  name: Compute
-         run: "bash -x ./run.sh 'stata-do/setup.do' ./stata.lic"
+         run: "bash -x ./run.sh './stata-do/setup.do' ./stata.lic"
