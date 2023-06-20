@@ -16,9 +16,11 @@ if [[ $CI ]]
    then
       echo "In CI Github Actions..."
       DOCKEROPTS="--rm"
+      PLATFORM=linux/amd64
       TAG=latest
    else
       DOCKEROPTS="-dit -ls"
+      PLATFORM=linux/arm64/v8
       
 fi
 
@@ -30,14 +32,14 @@ if [ $# -eq 0 ]
       time docker run $DOCKEROPTS \
         -v ${DROPBOX}/Country-Updates:/W2ID-Country-Updates \
         -v $(pwd)/wid-world:/wid-world \
-        --platform linux/arm64/v8 \
+        --platform $PLATFORM \
         $DOCKERIMG:$TAG /bin/bash
    else
       echo "Will run $1 file and check logfile"
       time docker run $DOCKEROPTS \
         -v ${DROPBOX}/Country-Updates:/W2ID-Country-Updates \
         -v $(pwd)/wid-world:/wid-world \
-        --platform linux/arm64/v8 \
+        --platform $PLATFORM \
         --entrypoint stata-mp \
         $DOCKERIMG:$TAG -bq $1
 
