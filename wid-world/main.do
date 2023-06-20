@@ -474,7 +474,7 @@ quietly do "$do_dir/import-exchange-rate.do"
 // $oecd_data/ppp/SNA_TABLE4_05032020140215471.csv
 // $oecd_data/ppp/PPP2017_05032020140258689.csv
 //		-> ppp-oecd.dta
-quietly o "$do_dir/import-ppp-oecd.do"
+quietly do "$do_dir/import-ppp-oecd.do"
 
 
 // Import Purchasing Power Parities from the World Bank
@@ -519,7 +519,7 @@ quietly do "$do_dir/import-un-sna68-corporations.do"
 quietly do "$do_dir/combine-un-sna68.do"
 
 
-// Import data from UN SNA online
+// Import data from UN SNA online (SLOW!)
 quietly do "$do_dir/import-un-sna-gdp.do"
 quietly do "$do_dir/import-un-sna-national-income.do"
 quietly do "$do_dir/import-un-sna-corporations.do"
@@ -538,7 +538,7 @@ quietly do "$do_dir/import-income-researchers.do"
 quietly do "$do_dir/reformat-wid-data.do"
 
 
-// Retropolate, combine, impute and calibrate series
+// Retropolate, combine, impute and calibrate series (SLOW!)
 quietly do "$do_dir/retropolate-combine-series.do"
 quietly do "$do_dir/impute-confc.do"
 quietly do "$do_dir/finalize-series.do"

@@ -5,3 +5,5 @@ data-input/un-sna
 *.log
 *.out
 wid-world/*.csv
+__MACOSX
+config.txt

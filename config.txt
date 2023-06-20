@@ -1,6 +1,0 @@
-# configuration created on 2023-06-20_15:59
-MYHUBID=mcamacho10
-MYIMG=wid-world
-TAG=2023-06-20
-STATALIC=/usr/local/Stata/stata.lic
-DROPBOX=/Users/user-wil/Dropbox/W2ID

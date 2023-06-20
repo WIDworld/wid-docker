@@ -1,6 +1,11 @@
 #!/bin/bash
 
-configfile=config.txt
+if [[ -f config.txt ]]
+then 
+   configfile=config.txt
+else 
+   configfile=init.config.txt
+fi
 
 echo "================================"
 echo "Pulling defaults from ${configfile}:"
@@ -10,8 +15,9 @@ source $configfile
 echo "================================"
 echo "Running docker:"
 
-
+# Docker options
 DOCKERIMG=$(echo $MYHUBID/$MYIMG | tr [A-Z] [a-z])
+
 if [[ $CI ]] 
    then
       echo "In CI Github Actions..."
@@ -20,8 +26,7 @@ if [[ $CI ]]
       TAG=latest
    else
       DOCKEROPTS="-dit -ls"
-      PLATFORM=linux/arm64/v8
-      
+      PLATFORM=linux/arm64/v8 
 fi
 
 # Run container 
