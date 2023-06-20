@@ -21,6 +21,7 @@ then
 	exit 2
 fi
 
+# Remove old image with same tag and [re]build
 docker rmi -f ${DOCKERIMG}:${TAG}
 DOCKER_BUILDKIT=1 docker build \
   $BUILDARGS \
@@ -28,11 +29,12 @@ DOCKER_BUILDKIT=1 docker build \
   --secret id=statalic,src=$STATALIC \
   --platform linux/arm64/v8 \
   -t ${DOCKERIMG}:$TAG
-   
+
+# If exited cleanly...
 if [[ $? == 0 ]]
 then
-   # write out final values to config
-   [[ -f config.txt ]] && \rm -i config.txt
+   # write out final values to config.txt
+   [[ -f config.txt ]] && \rm config.txt
    echo "# configuration created on $(date +%F_%H:%M)" | tee config.txt
    for name in $(grep -Ev '^#' init.config.txt| awk -F= ' { print $1 } ')
    do 

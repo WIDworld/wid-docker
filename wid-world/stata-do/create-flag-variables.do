@@ -67,4 +67,4 @@ rename iso alpha2
 
 order alpha2 year perc
 
-export delimited "$output_dir/$time/wid-flags.csv", replace
+export delimited "$output_dir/$datetime/wid-flags.csv", replace

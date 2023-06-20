@@ -1,5 +1,15 @@
 // -------------------------------------------------------------------------- //
-// Export countries and region codes
+// Export countries and region codes.
+//
+// ** Must re-run if the following raw files have changed **
+// 		$country_codes/country-codes-new.xlsx
+//
+// Requires:
+//		$country_codes/country-codes-new.xlsx
+// Produces:
+//		import-country-codes-output.dta
+//		import-region-codes-output.dta
+//		import-region-codes-mer-output.dta
 // -------------------------------------------------------------------------- //
 
 import excel "$country_codes/country-codes-new.xlsx", clear firstrow

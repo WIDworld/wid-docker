@@ -55,8 +55,6 @@ global all  QB QD QE QF QJ QK QL QM QN QO QP QS QT QU QV QW QX QY XA XB XF XL XM
 // National income and prices by year
 // -------------------------------------------------------------------------- //
 
-// global work_data "~/Downloads"
-// global year 2021
 
 use "$work_data/clean-up-output.dta", clear
 

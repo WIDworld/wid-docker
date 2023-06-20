@@ -54,4 +54,4 @@ assert region2 != "" if !(inrange(Alpha2, "QB", "QZ") | Alpha2 == "WO"  | inrang
 drop if Alpha2 == "KV"
 sort Alpha2
 
-export delimited "$output_dir/$time/metadata/country-codes.csv", delimit(";") replace
+export delimited "$output_dir/$datetime/metadata/country-codes.csv", delimit(";") replace

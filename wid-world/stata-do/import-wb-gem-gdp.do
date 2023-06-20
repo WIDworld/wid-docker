@@ -42,14 +42,12 @@ replace value2015 = . if (iso == "IR")
 replace value2018 = . if (iso == "IR")
 
 // Consistency checks
-local pastyear `"$pastyear"'
 local prepastyear = ($pastyear - 1)
 local preprepastyear = ($pastyear - 2)
 
 *br  if (value`prepastyear' < .)
 drop if iso == "AZ"
 assert abs(value`prepastyear' - value`preprepastyear')/value`prepastyear' < 0.5 if (value`prepastyear' < .)
-*assert abs(value`pastyear' - value`prepastyear')/value`pastyear' < 0.5 if (value`pastyear' < .)
 
 reshape long value, i(iso) j(year)
 drop if value >= .

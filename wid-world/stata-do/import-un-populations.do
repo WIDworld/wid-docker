@@ -5,7 +5,7 @@
 
 // Both sexes, all ages ----------------------------------------------------- //
 
-import excel "$un_data/populations/wpp/WPP${pastpastpastyear}_totalpopulation_bothsexes.xlsx", ///
+import excel "$un_data/populations/wpp/WPP`=$year-3'_totalpopulation_bothsexes.xlsx", ///
 	cellrange(B17) firstrow case(lower) clear
 
 // Correct column names
@@ -21,7 +21,7 @@ foreach v of varlist h-bz {
 
 // Adding estimated year - Medium Variant - 2021
 preserve
-	import excel "$un_data/populations/wpp/WPP${pastpastpastyear}_totalpopulation_bothsexes.xlsx", ///
+	import excel "$un_data/populations/wpp/WPP`=$year-3'_totalpopulation_bothsexes.xlsx", ///
 		cellrange(B17) sheet("MEDIUM VARIANT") firstrow case(lower) clear
 	// Correct column names
 	foreach v of varlist h-bz {
@@ -59,7 +59,7 @@ save "`unpop'", replace
 
 // Both sexes, age groups --------------------------------------------------- //
 
-import excel "$un_data/populations/wpp/WPP${pastpastpastyear}_POP_F15_1_ANNUAL_POPULATION_BY_AGE_BOTH_SEXES.xlsx", ///
+import excel "$un_data/populations/wpp/WPP`=$year-3'_POP_F15_1_ANNUAL_POPULATION_BY_AGE_BOTH_SEXES.xlsx", ///
 	cellrange(B17) firstrow case(lower) clear
 
 // Correct column names
@@ -78,7 +78,7 @@ foreach v of varlist i-ac {
 }
 // Adding estimated year - Medium Variant - 2021
 preserve
-	import excel "$un_data/populations/wpp/WPP${pastpastpastyear}_POP_F15_1_ANNUAL_POPULATION_BY_AGE_BOTH_SEXES.xlsx", ///
+	import excel "$un_data/populations/wpp/WPP`=$year-3'_POP_F15_1_ANNUAL_POPULATION_BY_AGE_BOTH_SEXES.xlsx", ///
 			cellrange(B17) sheet("MEDIUM VARIANT") firstrow case(lower) clear
 		// Correct column names
 	foreach v of varlist i-ac {
@@ -132,7 +132,7 @@ save "`unpop'", replace
 
 // Men, age groups ---------------------------------------------------------- //
 
-import excel "$un_data/populations/wpp/WPP${pastpastpastyear}_POP_F15_2_ANNUAL_POPULATION_BY_AGE_MALE.xlsx", ///
+import excel "$un_data/populations/wpp/WPP`=$year-3'_POP_F15_2_ANNUAL_POPULATION_BY_AGE_MALE.xlsx", ///
 	cellrange(B17) firstrow case(lower) clear
 
 // Correct column names
@@ -152,7 +152,7 @@ foreach v of varlist i-ac {
 
 // Adding estimated year - Medium Variant - 2021
 preserve
-	import excel "$un_data/populations/wpp/WPP${pastpastpastyear}_POP_F15_2_ANNUAL_POPULATION_BY_AGE_MALE.xlsx", ///
+	import excel "$un_data/populations/wpp/WPP`=$year-3'_POP_F15_2_ANNUAL_POPULATION_BY_AGE_MALE.xlsx", ///
 		cellrange(B17) sheet("MEDIUM VARIANT") firstrow case(lower) clear
 		// Correct column names
 	foreach v of varlist i-ac {
@@ -216,7 +216,7 @@ save "`unpop'", replace
 
 // Women, age groups -------------------------------------------------------- //
 
-import excel "$un_data/populations/wpp/WPP${pastpastpastyear}_POP_F15_3_ANNUAL_POPULATION_BY_AGE_FEMALE.xlsx", ///
+import excel "$un_data/populations/wpp/WPP`=$year-3'_POP_F15_3_ANNUAL_POPULATION_BY_AGE_FEMALE.xlsx", ///
 	cellrange(B17) firstrow case(lower) clear
 
 // Correct column names
@@ -236,7 +236,7 @@ foreach v of varlist i-ac {
 
 // Adding estimated year - Medium Variant - 2021
 preserve
-import excel "$un_data/populations/wpp/WPP${pastpastpastyear}_POP_F15_3_ANNUAL_POPULATION_BY_AGE_FEMALE.xlsx", ///
+import excel "$un_data/populations/wpp/WPP`=$year-3'_POP_F15_3_ANNUAL_POPULATION_BY_AGE_FEMALE.xlsx", ///
 		cellrange(B17) sheet("MEDIUM VARIANT") firstrow case(lower) clear
 		// Correct column names
 	foreach v of varlist i-ac {

@@ -8,7 +8,7 @@ set more off, perm
 program main
 
 	// Add required packages from SSC to this list
-	local ssc_packages 	"kountry" "coefplot" "sxpose" "egenmore" "carryforward" "quandl" "gtools" "etime" "swapval"
+	local ssc_packages 	"kountry" "coefplot" "sxpose" "egenmore" "carryforward" "quandl" "gtools" "etime" "swapval" "grstyle"
 	if !missing("`ssc_packages'") {
 		foreach pkg in "`ssc_packages'" {
 		// install using ssc, but avoid re-installing if already present
