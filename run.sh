@@ -16,6 +16,7 @@ if [[ $CI ]]
    then
       echo "In CI Github Actions..."
       DOCKEROPTS="--rm"
+      TAG=latest
    else
       DOCKEROPTS="-dit -ls"
       
