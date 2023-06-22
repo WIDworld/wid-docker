@@ -46,7 +46,7 @@ if [ $# -eq 0 ]
         -v $(pwd)/wid-world:/wid-world \
         --platform $PLATFORM \
         --entrypoint stata-mp \
-        $DOCKERIMG:$TAG -bq $1 &
+        $DOCKERIMG:$TAG -bq $1
 
       # print and check logfile
       basefile=$(basename $1)
@@ -54,7 +54,7 @@ if [ $# -eq 0 ]
       
       EXIT_CODE=0
       # Will likely not finish, but continue in background
-      sleep 5
+      sleep 10
 
       if [[ -f $logfile ]]
       then
