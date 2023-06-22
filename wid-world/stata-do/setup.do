@@ -4,10 +4,13 @@
 
 clear all
 
-global updates 			"/W2ID-Country-Updates" 	// Dropbox country data
+global updates 			"/W2ID/Country-Updates" 	// Dropbox country data
 global forbes_data 		"$updates/Forbes/2022"
 global historical 		"$updates/Historical_series/2022_December"
 global quality_file 	"$updates/AvailableData-World/Transparency_index_2022_update.xlsx"
+
+global wtid_data        "/W2ID/WTID-Data"
+global codes_dictionary "/W2ID/Methodology/Codes_Dictionnary_WID.xlsx"
 
 global output_dir 		"/wid-world/output"			// Output directory 
 cap mkdir "$output_dir"
@@ -16,13 +19,10 @@ global do_dir 			"/wid-world/stata-do"
 global ado_dir 			"/wid-world/stata-ado"
 sysdir set PERSONAL 	"$ado_dir" 					// Add to the ADO path
 
-// global raw_data			"/raw-data"				// MC testing
 global input_data_dir 	"/wid-world/data-input"		// External data sources
 
-global codes_dictionary "$input_data_dir/Codes_Dictionnary_WID.xlsx"
 global country_codes  	"$input_data_dir/country-codes"
 global currency_codes 	"$input_data_dir/currency-codes"
-global wtid_data        "$input_data_dir/wtid-data"
 global un_data          "$input_data_dir/un-data"
 global oecd_data        "$input_data_dir/oecd-data"
 global wb_data          "$input_data_dir/wb-data"
@@ -48,7 +48,7 @@ global Rpath 			"/usr/bin/R"				// Location of R executable
 
 
 // Store date and time in a global macro to timestamp the output
-local dt = "`c(current_time)'" + "_" + "`c(current_time)'"
+local dt 		= "`c(current_date)'" + "_" + "`c(current_time)'"
 global datetime = subinstr(subinstr("`dt'", ":", "_", .), " ", "_", .)
 
 // Store current and past years and to update WEO source and commands
@@ -77,7 +77,6 @@ global corecountries `" "AD"	"AE"	"AF"	"AG"	"AI"	"AL"	"AM"	"AO"	"AR"	"AT"	"AU"	"
 
 capture which grstyle
 if _rc == 111 {
-	dis "Installing 'grstyle'"
 	quietly ssc install grstyle, replace
 }
 

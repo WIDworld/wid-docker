@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# for debugging
-BUILDARGS="--progress plain --no-cache"
 
-
-# if we are on Github Actions
-if [[ $CI ]] 
+if [[ $CI ]] # if we are on Github Actions
 then
    DOCKERIMG=$(echo $GITHUB_REPOSITORY | tr [A-Z] [a-z])
    TAG=latest
@@ -21,17 +17,18 @@ then
 	exit 2
 fi
 
+
 # Remove old image with same tag and [re]build
 docker rmi -f ${DOCKERIMG}:${TAG}
-DOCKER_BUILDKIT=1 docker build \
-  $BUILDARGS \
-  . \
+
+DOCKER_BUILDKIT=1 docker build . \
+  --progress plain \
   --secret id=statalic,src=$STATALIC \
-  --platform linux/arm64/v8 \
+  --platform $PLATFORM \
   -t ${DOCKERIMG}:$TAG
 
-# If exited cleanly...
-if [[ $? == 0 ]]
+
+if [[ $? == 0 ]] # If exited cleanly
 then
    # write out final values to config.txt
    [[ -f config.txt ]] && \rm config.txt

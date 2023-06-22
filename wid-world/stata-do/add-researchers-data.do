@@ -1,7 +1,17 @@
 // -------------------------------------------------------------------------- //
 // IMPORT ALL FILES. Adds all new data provided by researchers to WID, 
 // pre-cleaned in their respective folders.
+//
+// Requires:
+// 		Country-Updates/***.dta,
+// 		calculate-average-over-output.dta,
+// 		correct-wtid-metadata-output.dta
+// Produces:
+//		add-researchers-data-output.dta
+//		add-researchers-data-metadata.dta
 // -------------------------------------------------------------------------- //
+
+// TODO: pull all files from single country updates directory?
 
 // Ivory Coast 2017 (Czajka2017 + update 2020) - fiinc & ptinc series - YES 
 use "$updates/Ivory_Coast/2022/ivory_coast_2022.dta", clear

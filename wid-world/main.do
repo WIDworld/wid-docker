@@ -19,7 +19,6 @@ quietly do "/wid-world/stata-do/setup.do"
 
 // -------------------------------------------------------------------------- //
 // Import country codes and regions
-// TODO: Have necessary file/s in Cloud with timestamp.
 // -------------------------------------------------------------------------- //
 
 di "At $S_DATE $S_TIME setting up country codes..."
@@ -53,32 +52,27 @@ quietly do "$do_dir/import-country-codes.do"
 //		convert-to-nominal-output.dta
 //		calculate-averages-output.dta
 //		add-macro-data-output.dta
-//
-// TODO: Have necessary file/s in Cloud with timestamp.
 // -------------------------------------------------------------------------- //
 
 di "At $S_DATE $S_TIME importing old WTID..."
 etime
 
-// Import original Excel file to Stata (if not done already)
+// Import original Excel file to Stata 
 // $wtid_data/Database.xls 
 //		-> original-wtid-db.dta
-if !fileexists("$work_data/original-wtid-db.dta") {
-	quietly do "$do_dir/import-wtid-from-excel-to-stata.do"
-}
-assert fileexists("$work_data/original-wtid-db.dta")
+quietly do "$do_dir/import-wtid-from-excel-to-stata.do"
 
 
 // Import the conversion table from old to the new WID codes
 // $codes_dictionary (i.e. $wid_dir/Methodology/Codes_Dictionnary_WID.xlsx)
 // 		-> correspondance_table.dta
-// TODO: have $codes_dictionary in one cloud file
 quietly do "$do_dir/import-conversion-table.do"
 
 
 // Add the new WID variable codes
 // original-wtid-db.dta, 
 // correspondance-table.dta 
+// $wtid_data/correspondance_composition.xlsx
 // 		-> add-new-wid-codes-output-data.dta
 // 		-> add-new-wid-codes-output-metadata.dta
 quietly do "$do_dir/add-new-wid-codes.do"
@@ -88,6 +82,7 @@ quietly do "$do_dir/add-new-wid-codes.do"
 // $codes_dictionary, 
 // add-new-wid-codes-output-metadata.dta
 //		-> correct-wtid-metadata-output.dta
+// TODO: add re-run check.
 quietly do "$do_dir/correct-wtid-metadata.do"
 
 
@@ -95,18 +90,21 @@ quietly do "$do_dir/correct-wtid-metadata.do"
 // add-new-wid-codes-output-data.dta,
 // $un_data/sna-main/exchange-rate/zimbabwe/zimbabwe-exchange-rate.csv
 // 		-> harmonize-units-output.dta
+// TODO: add re-run check.
 quietly do "$do_dir/harmonize-units.do"
 
 
 // Convert currency amounts to nominal
 // harmonize-units-ouput.dta
 //		-> convert-to-nominal-output.dta
+// TODO: add re-run check.
 quietly do "$do_dir/convert-to-nominal.do"
 
 
 // Calculate income averages from shares
 // convert-to-nominal-output.dta
 //		-> calculate-averages-output.dta
+// TODO: add re-run check.
 quietly do "$do_dir/calculate-averages.do"
 
 
@@ -114,6 +112,7 @@ quietly do "$do_dir/calculate-averages.do"
 // $wtid_data/CFCNFIGDP_WID.xls,
 // calculate-averages-output.dta
 // 		-> add-macro-data-output.dta
+// TODO: add re-run check.
 quietly do "$do_dir/add-macro-data.do"
 
 
@@ -133,12 +132,14 @@ etime
 // Calculate income in each category from the composition variables
 // add-macro-data-output.dta
 // 		-> calculate-income-categories-output.dta
+// TODO: add re-run check.
 quietly do "$do_dir/calculate-income-categories.do"
 
 
 // Calculate o- variables
 // calculate-income-categories-output.dta
 // 		-> calculate-average-over-output.dta
+// TODO: add re-run check.
 quietly do "$do_dir/calculate-average-over.do"
 
 
@@ -167,6 +168,7 @@ etime
 // correct-wtid-metadata-output.dta
 //		-> add-researchers-data-output.dta
 //		-> add-researchers-data-metadata.dta
+// TODO: pull all files from single country updates directory?
 quietly do "$do_dir/add-researchers-data.do"
 
 
@@ -609,7 +611,7 @@ quietly do "$do_dir/add-price-index.do"
 quietly do "$do_dir/add-national-accounts.do"
 
 
-// Add the population data
+// Add the population data (SLOW!)
 // populations.dta
 // add-national-accounts-output.dta
 // 		-> add-populations-output.dta
@@ -852,7 +854,7 @@ quietly do "$do_dir/export-metadata-other.do"
 // TODO: Problem with reshape long to wide !
 // metadata-final.dta
 // 		-> $output_dir/$datetime/wid-flags.csv
-quietly do "$do_dir/create-flag-variables.do"
+// quietly do "$do_dir/create-flag-variables.do"
 
 
 // Export the units
@@ -868,7 +870,7 @@ quietly do "$do_dir/export-units.do"
 // merge-historical-main.dta
 // 		-> wid-long.dta
 //		-> $output_dir/Latest_Updated_WID/wid-data.dta
-//		-> $output_dir/$datetime/wid-data-$datetime.csv
+//		-> $output_dir/$datetime/wid-data.csv
 quietly do "$do_dir/create-main-db.do"
 
 // wid-final.dta

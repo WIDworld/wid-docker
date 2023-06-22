@@ -1,3 +1,34 @@
+// -------------------------------------------------------------------------- //
+// Add the new WID variable codes.
+// Requires:
+// 		original-wtid-db.dta, 
+// 		correspondance-table.dta 
+//		$wtid_data/correspondance_composition.xlsx
+// Produces:
+// 		add-new-wid-codes-output-data.dta
+// 		add-new-wid-codes-output-metadata.dta
+// -------------------------------------------------------------------------- //
+
+assert fileexists("$wtid_data/correspondance_composition.xlsx")
+local data_exists = fileexists("$work_data/add-new-wid-codes-output-data.dta")
+local meta_exists = fileexists("$work_data/add-new-wid-codes-output-metadata.dta")
+if (`data_exists' & `meta_exists') {
+	quietly ashell date -r $work_data/add-new-wid-codes-output-metadata.dta +%s
+	local converted = r(o1)
+	quietly ashell date -r $wtid_data/correspondance_composition.xlsx +%s
+	local comp_changed = r(o1)
+	quietly ashell date -r $wtid_data/correspondance-table.dta +%s
+	local prior_dta = r(o1)
+	if `converted' > `comp_changed' & `converted' > `prior_dta' {
+		di "No new codes needed!"
+		exit
+	}
+	else {
+		di "Adding new WID codes."
+	}
+}
+
+
 use "$work_data/original-wtid-db.dta", clear
 
 // Identify countries

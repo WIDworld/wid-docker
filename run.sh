@@ -13,6 +13,7 @@ cat $configfile
 echo "--------------------------------"
 source $configfile
 echo "================================"
+
 echo "Running docker:"
 
 # Docker options
@@ -22,31 +23,30 @@ if [[ $CI ]]
    then
       echo "In CI Github Actions..."
       DOCKEROPTS="--rm"
-      PLATFORM=linux/amd64
+      # PLATFORM=linux/amd64 # see multi-platform usage
       TAG=latest
    else
       DOCKEROPTS="-dit -ls"
-      PLATFORM=linux/arm64/v8 
 fi
 
 # Run container 
 if [ $# -eq 0 ]
   then
-      echo "No file supplied, will run bash..."
+      echo "No file supplied, will run bash."
       # Run container with bash
       time docker run $DOCKEROPTS \
-        -v ${DROPBOX}/Country-Updates:/W2ID-Country-Updates \
+        -v ${DROPBOX}/W2ID:/W2ID \
         -v $(pwd)/wid-world:/wid-world \
         --platform $PLATFORM \
         $DOCKERIMG:$TAG /bin/bash
    else
       echo "Will run $1 file and check logfile"
       time docker run $DOCKEROPTS \
-        -v ${DROPBOX}/Country-Updates:/W2ID-Country-Updates \
+        -v ${DROPBOX}/W2ID:/W2ID \
         -v $(pwd)/wid-world:/wid-world \
         --platform $PLATFORM \
         --entrypoint stata-mp \
-        $DOCKERIMG:$TAG -bq $1
+        $DOCKERIMG:$TAG -bq $1 &
 
       # print and check logfile
       basefile=$(basename $1)

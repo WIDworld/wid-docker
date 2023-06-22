@@ -26,4 +26,4 @@ keep iso year p widcode value
 rename iso Alpha2
 rename p   perc
 order Alpha2 year perc widcode
-export delim "$output_dir/$datetime/wid-data-$datetime.csv", delimiter(";") replace
+export delim "$output_dir/$datetime/wid-data.csv", delimiter(";") replace

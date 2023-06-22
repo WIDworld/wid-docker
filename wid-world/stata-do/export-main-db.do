@@ -1,4 +1,4 @@
-use "$work_data/wid-final.dta", clear
+use "$work_data/wid-long.dta", clear
 
 *keep if substr(iso, 1, 2) == "US"
 

@@ -9,9 +9,9 @@ This repository is generated from `AEADataEditor/stata-project-with-docker` and 
 
 ## TODO
 
-- [ ] URGENT: Check/add memory limits (`main` process getting Killed.)
-- [ ] Add screen capability for long `main.do` run?
-- [ ] Move gh actions into `build.sh` script?
+- [ ] [Multi-platform compatability](https://docs.docker.com/build/building/multi-platform/)? 
+- [ ] Code efficiency (and less importantly, syntax and style) improvements. See `wid-world/README.md`.
+- [ ] Send output to Docker logs. 
 
 
 ## Requirements
