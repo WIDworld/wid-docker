@@ -4,6 +4,8 @@
 
 clear all
 
+di "At $S_DATE $S_TIME doing set-up of project variables."
+
 global updates 			"/W2ID/Country-Updates" 	// Dropbox country data
 global forbes_data 		"$updates/Forbes/2022"
 global historical 		"$updates/Historical_series/2022_December"

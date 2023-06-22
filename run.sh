@@ -50,11 +50,11 @@ if [ $# -eq 0 ]
 
       # print and check logfile
       basefile=$(basename $1)
-      logfile=${1%*.do}.log
+      logfile=wid-world/${basefile%*.do}.log
       
       EXIT_CODE=0
       # Will likely not finish, but continue in background
-      sleep 10
+      sleep 5
 
       if [[ -f $logfile ]]
       then
