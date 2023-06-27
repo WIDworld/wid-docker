@@ -50,6 +50,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.DOCKER_PROJECT }}:latest-${PLATFORM}
+          tags: ${{ env.DOCKER_PROJECT }}:latest-${{ env.PLATFORM }}
           secret-files: |
              "statalic=./stata.lic"
