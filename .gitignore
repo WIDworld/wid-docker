@@ -6,5 +6,4 @@ data-input/un-sna
 *.out
 wid-world/*.csv
 __MACOSX
-config.txt
 wid-world/output/
