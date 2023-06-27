@@ -1,6 +1,6 @@
 MYHUBID=mcamacho10				
 MYIMG=wid-world	
-TAG=latest 
+TAG=latest-arm64
 STATALIC=/usr/local/Stata/stata.lic
 DROPBOX=${HOME}/Dropbox
 PLATFORM=linux/arm64/v8

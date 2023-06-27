@@ -23,7 +23,7 @@ if [[ $CI ]]
    then
       echo "In CI Github Actions..."
       DOCKEROPTS="--rm"
-      # PLATFORM=linux/amd64 # see multi-platform usage
+      PLATFORM=linux/amd64 # see multi-platform usage
       TAG=latest
    else
       DOCKEROPTS="-dit -ls"
