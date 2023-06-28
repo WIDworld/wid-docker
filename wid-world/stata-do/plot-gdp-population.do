@@ -1,5 +1,5 @@
-capture mkdir "$project_dir/report-output/countries-gdp"
-capture mkdir "$project_dir/report-output/countries-populations"
+cap mkdir "$output_dir/countries-gdp"
+cap mkdir "$output_dir/countries-populations"
 
 // GDP evolution by country
 use "$work_data/wid-final.dta", clear
@@ -13,7 +13,7 @@ keep if iso=="`l'"
 drop if mi(mgdpro999i)
 tsset year
 tsline mgdpro999i, title("`l'") graphregion(color(white)) xsize(4)
-graph export "$project_dir/report-output/countries-gdp/`l'.pdf", replace
+graph export "$output_dir/countries-gdp/`l'.pdf", replace
 restore
 }
 
@@ -30,6 +30,6 @@ keep if iso=="`l'"
 drop if mi(npopul999i)
 tsset year
 tsline npopul999i, title("`l'") graphregion(color(white)) xsize(4)
-graph export "$project_dir/report-output/countries-populations/`l'.pdf", replace
+graph export "$output_dir/countries-populations/`l'.pdf", replace
 restore
 }

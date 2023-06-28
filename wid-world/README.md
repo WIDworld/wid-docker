@@ -8,9 +8,12 @@ Raw data files to World Inequality Database formatted output, ready to be upload
 
 ## TODO
 
-- [ ] Pull from RAW DATA FILES FOLDER IN DROPBOX AND THATS IT
+- [ ] Pull from single folder in (e.g.) Dropbox with ALL RAW DATA
+	- Have necessary file/s in Cloud with timestamp.
+	- Clean up `data-input`
 - [ ] ADD Checkpoints in code 
 	- What if happens if one file fails?
-	- Using work-data files if exist?
-- [ ] Problem with create-flag-variables.do
-	- Problem with reshape long to wide !
+	- Using `work-data` files if exist?
+	- Parallelize where possible (run background Do-files?)
+- [ ] Problem with create-flag-variables.do reshape.
+ 

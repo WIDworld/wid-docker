@@ -9,9 +9,9 @@ This repository is generated from `AEADataEditor/stata-project-with-docker` and 
 
 ## TODO
 
-- [ ] URGENT: Check/add memory limits (`main` process getting Killed.)
-- [ ] Add screen capability for long `main.do` run?
-- [ ] Move gh actions into `build.sh` script?
+- [ ] [Multi-platform compatability](https://docs.docker.com/build/building/multi-platform/)? 
+- [ ] Code efficiency (and less importantly, syntax and style) improvements. See `wid-world/README.md`.
+- [ ] Send output to Docker logs. 
 
 
 ## Requirements
@@ -47,7 +47,7 @@ However, this can be time and memory intensive! I recommend downloading a pre-bu
 
 More simply, you can download pre-built image from Docker Hub!
 
-1. [ ] Find the appropriate image from [Docker Hub](https://hub.docker.com/repository/docker/mcamacho10/wid-world/general).
+1. [ ] Find the appropriate image from [Docker Hub](https://hub.docker.com/repository/docker/mcamacho10/wid-world/general), matching the architecture of your local machine.
 2. [ ] Run `docker pull mcamacho10/wid-world:<TAG>`
 
 
@@ -61,17 +61,17 @@ The [Dockerfile](Dockerfile) contains instructions to build the container. You c
 
 #### Set Stata version
 
-To specify the Stata version of your choice, go to [https://hub.docker.com/u/dataeditors](https://hub.docker.com/u/dataeditors), click on the version you want to use (the one you have a license for), then go to "tags" and see what is the latest available tag for this version. Then, edit the Dockerfile to match, e.g.
+To specify the Stata version of your choice, go to [https://hub.docker.com/u/dataeditors](https://hub.docker.com/u/dataeditors), click on the version you want to use (i.e. the one you have a license for), then go to "tags" and see what is the latest available tag for this version. Then, edit the Dockerfile to match, e.g.
 
 ```
 # Local Stata version
-ARG SRCVERSION = MY_STATA_VERSION
+ARG SRCVERSION=<MY_STATA_VERSION>
 
 # Matching Stata version tag from https://hub.docker.com/u/dataeditors
-ARG SRCTAG = MATCHING_DATAEDITORS_STATA_VERSION_TAG
+ARG SRCTAG=<MATCHING_DATAEDITORS_STATA_VERSION_TAG>
 ```
 
-which will resolve to e.g.
+which will resolve to, e.g.
 
 ```
 FROM dataeditors/stata16:2022-10-14
@@ -124,9 +124,12 @@ The script [`run.sh`](run.sh) will pick up the configuration information in `con
 - The image maps the familiar `wid-world/` sub-directory in the sample repository into the image as `/wid-world`. As a result, output will appear **locally** in e.g. `wid-world/work-data` and be preserved once the Docker image is stopped (and deleted).
 - If you need additional sub-directories availabe in the image, you will need to map them, using additional `-v` lines.
 
-Once built, you can navigate into your container and explore your new virtual environment using `docker exec -it run <CONTAINER_NAME> bash`.
+Once built, you can navigate into your container and explore your new virtual environment using 
+```
+docker exec -it run <CONTAINER_NAME> bash`.
+```
 
-Alternatively, you can run `./run.sh main.do` (or provide a different Stata do-file as argument which will attempt to run said Stata file).
+Alternatively, you can run `./run.sh main.do` (or provide a different Stata do-file as argument which will attempt to run said Stata file and log the output to e.g. `main.log`).
 
 
 ## Cloud functionality
@@ -183,7 +186,7 @@ on:
 
 which instructs the Github Action (run Stata on the code) to be triggered either by a commit to the `main` branch (or the `dev-mc` branch), or to be manually triggered, by going to the "Actions" [tab](https://github.com/mkmacho/wid-docker/actions) in the Github Repository. The latter is very helpful for debugging!
 
-To test whether Stata code can be run and specifically whether our code can be run, we can test run the `setup.do` code within the `run-test.sh` script. This can be found in the [`.github/workflows/compute.yml`](.github/workflows/compute.yml) section.
+To test whether Stata code can be run and specifically whether our code can be run, we can test run e.g. the `setup.do` code by calling `./run.sh stata-do/setup.do` script. This can be found in the [`.github/workflows/compute.yml`](.github/workflows/compute.yml) section.
 
 
 And if you want to be really fancy (we are), then you show a badge showing the latest result of the `compute` run (which in our case, demonstrates that this project is reproducible!): [![Compute analysis](https://github.com/mkmacho/wid-docker/actions/workflows/compute.yml/badge.svg)](https://github.com/mkmacho/wid-docker/actions/workflows/compute.yml). 
@@ -227,7 +230,7 @@ See [the Docker Hub documentation](https://docs.docker.com/docker-hub/access-tok
 ### Running it
 
 The [`.github/workflows/build.yml`](.github/workflows/build.yml) workflow will run through all the necessary steps to publish an image. Note that there's a slight difference in what it does: it will always create a "latest" tag, not a date- or release-specific tag. However, you can always associate a specific tag with the latest version manually. And because we are really fancy, we also have a badge for that: 
-[![Build docker image](https://github.com/mkmacho/wid-docker/actions/workflows/build.yml/badge.svg)](https://github.com/mkmacho/wid-docker/actions/workflows/build.yml).
+[![Build docker image](https://github.com/mkmacho/wid-docker/actions/workflows/build.yml/badge.svg)](https://github.com/mkmacho/wid-docker/actions/workflows/build.yml). Note too that this may have a different manifest architecture than your local machine!
 
 
 ## Other options

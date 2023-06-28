@@ -90,7 +90,7 @@ graph twoway (connected y year, symbol(none) color("8 48 107")), ///
 restore
 
 graph combine europe america asia africa, title("Consumption of fixed capital") iscale(0.65) ycommon
-capture mkdir "$output_dir/cfc-nfi"
+cap mkdir "$output_dir/cfc-nfi"
 graph export "$output_dir/cfc-nfi/cfc.pdf", replace
 graph export "$output_dir/cfc-nfi/cfc.png", width(2000) replace
 graph close

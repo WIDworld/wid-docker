@@ -20,7 +20,9 @@ RUN apt-get update \
         software-properties-common \
         gnupg \
         curl \
-        sudo cmake \
+        sudo \
+        screen \
+        cmake \
         libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev \
         libharfbuzz-dev libfribidi-dev \
         libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
@@ -51,10 +53,10 @@ RUN --mount=type=secret,id=statalic \
     cp /run/secrets/statalic /usr/local/stata/stata.lic \
     && chmod a+r /usr/local/stata/stata.lic
 
-# Set up `wid-world` and install Stata requirements
-RUN mkdir -p /wid-world/config
-COPY ./wid-world/stata-do/install.do /wid-world/config/
-RUN stata-mp -q do /wid-world/config/install | tee /wid-world/config/install.log
+# Install Stata requirements
+RUN mkdir -p /wid-world
+COPY ./wid-world/stata-do/install.do /home/statauser/
+RUN stata-mp do /home/statauser/install | tee /home/statauser/install.log
 
 # Working directory
 WORKDIR /wid-world

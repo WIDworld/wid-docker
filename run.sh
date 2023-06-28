@@ -1,6 +1,11 @@
 #!/bin/bash
 
-configfile=config.txt
+if [[ -f config.txt ]]
+then 
+   configfile=config.txt
+else 
+   configfile=init.config.txt
+fi
 
 echo "================================"
 echo "Pulling defaults from ${configfile}:"
@@ -8,41 +13,44 @@ cat $configfile
 echo "--------------------------------"
 source $configfile
 echo "================================"
+
 echo "Running docker:"
 
-
+# Docker options
 DOCKERIMG=$(echo $MYHUBID/$MYIMG | tr [A-Z] [a-z])
+
 if [[ $CI ]] 
    then
       echo "In CI Github Actions..."
       DOCKEROPTS="--rm"
+      PLATFORM=linux/amd64 # see multi-platform usage
+      TAG=latest
    else
       DOCKEROPTS="-dit -ls"
-      
 fi
 
 # Run container 
 if [ $# -eq 0 ]
   then
-      echo "No file supplied, will run bash..."
+      echo "No file supplied, will run bash."
       # Run container with bash
       time docker run $DOCKEROPTS \
-        -v ${DROPBOX}/Country-Updates:/W2ID-Country-Updates \
+        -v ${DROPBOX}/W2ID:/W2ID \
         -v $(pwd)/wid-world:/wid-world \
-        --platform linux/arm64/v8 \
+        --platform $PLATFORM \
         $DOCKERIMG:$TAG /bin/bash
    else
       echo "Will run $1 file and check logfile"
       time docker run $DOCKEROPTS \
-        -v ${DROPBOX}/Country-Updates:/W2ID-Country-Updates \
+        -v ${DROPBOX}/W2ID:/W2ID \
         -v $(pwd)/wid-world:/wid-world \
-        --platform linux/arm64/v8 \
+        --platform $PLATFORM \
         --entrypoint stata-mp \
         $DOCKERIMG:$TAG -bq $1
 
       # print and check logfile
       basefile=$(basename $1)
-      logfile="wid-world/${basefile%*.do}.log"
+      logfile=wid-world/${basefile%*.do}.log
       
       EXIT_CODE=0
       # Will likely not finish, but continue in background

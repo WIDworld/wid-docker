@@ -45,13 +45,13 @@ assert ShortName != ""
 
 // Check that all countries are in a region
 assert region  != "" if !(inrange(Alpha2, "QB", "QZ") | Alpha2 == "WO"  | inrange(Alpha2, "OA", "OJ") ///
-			           | inrange(Alpha2, "XA", "XF") | inrange(Alpha2, "XL", "XS")) ///
-					  & !inlist(substr(Alpha2, 1, 3), "US-", "CN-", "DE-") & (substr(Alpha2,3,.) != "-MER")
+	| inrange(Alpha2, "XA", "XF") | inrange(Alpha2, "XL", "XS")) ///
+	& !inlist(substr(Alpha2, 1, 3), "US-", "CN-", "DE-") & (substr(Alpha2,3,.) != "-MER")
 assert region2 != "" if !(inrange(Alpha2, "QB", "QZ") | Alpha2 == "WO"  | inrange(Alpha2, "OA", "OJ") ///
-			          | inrange(Alpha2, "XA", "XF") | inrange(Alpha2, "XL", "XS")) ///
-					  & !inlist(substr(Alpha2, 1, 3), "US-", "CN-", "DE-") & (substr(Alpha2,3,.) != "-MER")
+	| inrange(Alpha2, "XA", "XF") | inrange(Alpha2, "XL", "XS")) ///
+	& !inlist(substr(Alpha2, 1, 3), "US-", "CN-", "DE-") & (substr(Alpha2,3,.) != "-MER")
 
 drop if Alpha2 == "KV"
 sort Alpha2
 
-export delimited "$output_dir/$time/metadata/country-codes.csv", delimit(";") replace
+export delimited "$output_dir/$datetime/metadata/country-codes.csv", delimit(";") replace

@@ -117,7 +117,8 @@ preserve
 	renvars value*, predrop(5)
 	rename region iso
 	merge m:1 iso using "$work_data/import-region-codes-output.dta", keep(matched) nogen
-	drop iso shortname matchname
+	drop iso shortname 
+	// drop matchname
 	rename titlename region 
 	order region AD
 	gsort region year

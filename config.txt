@@ -1,5 +1,7 @@
-MYHUBID=mcamacho10				
-MYIMG=wid-world	
-TAG=2023-06-06
+# configuration created on 2023-06-27_22:39
+MYHUBID=mcamacho10
+MYIMG=wid-world
+TAG=latest-arm64
 STATALIC=/usr/local/Stata/stata.lic
-DROPBOX=${HOME}/Dropbox/W2ID
+DROPBOX=/Users/user-wil/Dropbox
+PLATFORM=linux/arm64/v8

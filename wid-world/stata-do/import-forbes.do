@@ -1,9 +1,13 @@
-****  This do-file imports and matches Forbes data to wealth distributions  ****
+// -------------------------------------------------------------------------- //
+// This do-file imports and matches Forbes data to wealth distributions. 
+// -------------------------------------------------------------------------- //
 
 
-* Import Forbes data
+// Import Forbes data
 
 use "$forbes_data/forbes-1988-2010.dta", clear
+
+local forbes_year = $year - 1
 
 keep if year<1997
 replace worth = worth*1000
@@ -24,7 +28,7 @@ replace worth = worth*1000
 tempfile forbes19972015
 save `forbes19972015'
 
-insheet using  "$forbes_data/forbes-2015-$forbes_year.csv", delim(;) clear
+insheet using  "$forbes_data/forbes-2015-`forbes_year'.csv", delim(;) clear
 
 
 append using `forbes19881997', force
@@ -58,8 +62,8 @@ collapse (sum) worth (sum) n, by(year country)
 
 rename n nb
 
-tempfile forbes1988$forbes_year
-save `forbes1988$forbes_year', replace
+tempfile forbes1988`forbes_year'
+save `forbes1988`forbes_year'', replace
 
 
 * Match to wealth distributions 
@@ -70,12 +74,10 @@ ren (shortname alpha2) (country iso)
 
 
 // merge 1:m iso using "$work/wealth-distributions-extrapolated.dta", nogen keep(matched)
-merge 1:m iso using "$forbes_data/wealth-distributions-$forbes_upd_year.dta", nogen keep(matched)
-merge m:1 country year using `forbes1988$forbes_year', nogen keep(matched master) 
+merge 1:m iso using "$forbes_data/wealth-distributions-$year.dta", nogen keep(matched)
+merge m:1 country year using `forbes1988`forbes_year'', nogen keep(matched master) 
 
 recode nb worth (mis=0)
-
-// drop npopul992i$forbes_year npopul999i$forbes_year mnninc999PPP$forbes_year wealthMER2016 wealthMER2019 wealthMER2020 g1619
 
 sort iso year p 
 
@@ -92,16 +94,5 @@ replace a_ppp = . if pb_ppp
 sort iso year p 
 
 save "$work_data/wealth-distributions-matched-forbes.dta", replace
-
-
-/* questions
-1. how does the global years work? is it the same as the one in the setup? I want to see if I should use the same or create a new one? so far I have created a $forbes_year global
-
-2. correct-top-forbes dofile, line 127 needs wealth-distributions-extrapolated.dta (but just to test consistency) which is created by 1.extrapolate-2021.do. should I include this dofile in the routine?  
-A: if it is only for consistency we don’t include the code. we need to simplify as much as we can.
-
-3. I included these two new dofiles (import-forbes + correct-top-forbes) in folder 8 - Additional computations in the working directory, is that fine? 
-A: YES
-
 
 

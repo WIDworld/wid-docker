@@ -10,7 +10,7 @@ use "$work_data/retropolate-gdp.dta", clear
 preserve
 	use "$work_data/ppp.dta", clear
 	keep if inlist(iso, "SD", "SS") 
-	keep if year == $pastyear
+	keep if year == $year - 1
 	
 	drop currency refyear
 	reshape wide ppp, i(year) j(iso) string
@@ -32,7 +32,7 @@ preserve
 	keep if widcode == "xlcusx999i"
 	keep if inlist(iso, "ER", "ET", "TL", "ID") ///
 		  | inlist(iso, "KS", "RS") 
-	keep if year == $pastyear
+	keep if year == $year - 1
 	drop p currency
 *	drop if year<1990
 	reshape wide value, i(year widcode) j(iso) string

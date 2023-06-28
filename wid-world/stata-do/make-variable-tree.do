@@ -421,5 +421,5 @@ duplicates drop path comp level category name, force
 
 order path comp level category name orphan rank
 
-export delimited "$output_dir/$time/metadata/variable-tree.csv", delimiter(";") replace
+export delimited "$output_dir/$datetime/metadata/variable-tree.csv", delimiter(";") replace
 

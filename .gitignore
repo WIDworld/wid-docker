@@ -4,3 +4,6 @@ work-data
 data-input/un-sna
 *.log
 *.out
+wid-world/*.csv
+__MACOSX
+wid-world/output/

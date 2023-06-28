@@ -198,7 +198,6 @@ replace data_imputation = "rescaling" if (Alpha2 == "ZA") & (TwoLet == "pt") & (
 replace extrapolation = "[[1963, $pastyear]]" if (Alpha2 == "ZA") & (TwoLet == "pt") & (ThreeLet == "inc")
 replace data_points = "[2006, 2008, 2010, 2012, 2014, 2016]" if data_points == "[2006,2008,2010,2012,2014,2016]"
 replace data_points = "" if data_points == "[1978-2015]"
-capture mkdir "$output_dir/$time/metadata"
 
 *replace Alpha2="KV" if Alpha2=="KS"
 
@@ -240,7 +239,7 @@ if (inlist(alpha2, "OA", "OB", "OC", "OD", "OE", "OI") | inlist(alpha2, "OJ", "Q
 
 save "$work_data/metadata-final.dta", replace
 
-export delimited "$output_dir/$time/metadata/var-notes-$time.csv", replace delimiter(";") quote
+export delimited "$output_dir/$datetime/metadata/var-notes.csv", replace delimiter(";") quote
 
 
 

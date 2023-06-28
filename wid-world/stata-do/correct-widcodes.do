@@ -1,3 +1,26 @@
+// -------------------------------------------------------------------------- //
+// Make some corrections because some widcodes for national wealth had to be
+// changed: to be eventually integrated to the above files
+// add-researchers-data-output.dta
+//		-> correct-widcodes-output.dta
+// add-researchers-data-metadata.dta
+//		-> correct-widcodes-metadata.dta
+// -------------------------------------------------------------------------- //
+
+assert fileexists("$work_data/add-researchers-data-metadata.dta")
+local data_exists = fileexists("$work_data/correct-widcodes-output.dta")
+local meta_exists = fileexists("$work_data/correct-widcodes-metadata.dta")
+if (`data_exists' & `meta_exists') {
+	quietly ashell date -r $work_data/correct-widcodes-metadata.dta +%s
+	local converted = r(o1)
+	quietly ashell date -r $work_data/add-researchers-data-metadata.dta +%s
+	local data_changed = r(o1)
+	if `converted' > `data_changed' {
+		di "No action needed!"
+		exit
+	}
+}
+
 use "$work_data/add-researchers-data-output.dta", clear
 
 local old_codes nwhom nwodm nwnfm nwbum nwdem nwfim

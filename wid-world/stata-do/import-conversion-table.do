@@ -1,3 +1,28 @@
+// -------------------------------------------------------------------------- //
+// Import the conversion table from old to the new WID codes
+// Requires:
+// 		$codes_dictionary ($wid_dir/Methodology/Codes_Dictionnary_WID.xlsx)
+// Produces:
+//		correspondance_table.dta
+// TODO: have $codes_dictionary in one Cloud file (with timestamp)
+// -------------------------------------------------------------------------- //
+
+assert fileexists("$codes_dictionary")
+if fileexists("$work_data/correspondance_table.dta") {
+	quietly ashell date -r $work_data/correspondance_table.dta +%s
+	local converted = r(o1)
+	quietly ashell date -r $codes_dictionary +%s
+	local codes_changed = r(o1)
+	if `converted' > `codes_changed' {
+		di "No conversion needed!"
+		exit
+	}
+	else {
+		di "Converting table."
+	}
+}
+
+
 // Wealth: macroeconomic variables
 import excel using "$codes_dictionary", ///
 	sheet("Wealth_Macro_Variables") cellrange(D4:F125) clear allstring

@@ -11,7 +11,7 @@ drop if mnninc999i==.
 keep iso year mnninc999i npopul992i xlceup999i
 
 // Fetch PPP
-replace xlceup999i=. if year!=$pastyear
+replace xlceup999i=. if year != $year - 1
 bys iso: egen xrate=mean(xlceup999i)
 drop xlceup999i
 rename xrate xlceup999i
@@ -58,7 +58,7 @@ generate othasia = (region1 == "Asia") & !inlist(iso, "CN", "JP", "IN")
 
 // Region NNIs and Populations
 foreach var of varlist mnninc999i npopul992i{
-forval y=1950/$pastyear{
+forval y=1950/`=$year-1' {
 qui{
 	summarize `var' if year==`y'
 	gen `var'world_`y' = r(sum)
